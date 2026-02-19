@@ -1,4 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
+body {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+.first {
+  @apply bg-slate-950 text-slate-100;
+}
+
+.second {
+  @apply bg-slate-950 text-slate-100;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
