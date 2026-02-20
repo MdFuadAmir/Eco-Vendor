@@ -1,9 +1,10 @@
-import Header from "../../../Components/Header/Header";
+import Banner from "./Banner/Banner";
+
 
 const Home = () => {
   return (
     <div>
-      <Header />
+     <Banner/>
     </div>
   );
 };

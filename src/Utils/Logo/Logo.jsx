@@ -2,16 +2,24 @@ import image from "../../assets/Logo/leaf.png";
 import { Link } from "react-router";
 
 const Logo = () => {
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Link
       to="/"
+      onClick={handleScrollTop}
       className="flex items-center gap-1 text-green-500 hover:opacity-90 transition"
     >
       {/* Logo Image */}
       <img
         src={image}
         alt="Eco Vendex Logo"
-        className="w-9 h-9  object-cover "
+        className="w-9 h-9 object-cover"
       />
 
       {/* Text Logo */}
