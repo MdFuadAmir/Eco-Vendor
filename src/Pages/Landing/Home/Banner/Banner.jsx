@@ -21,49 +21,49 @@ const Banner = () => {
             <div className="w-full h-96">
               <img
                 src={banner1}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner2}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner4}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner5}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner6}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner7}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner8}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
             <div className="w-full h-96">
               <img
                 src={banner9}
-                className="w-full h-full object-contain dark:bg-slate-900 rounded-xl"
+                className="w-full h-full object-cover dark:bg-slate-900 rounded-xl"
               />
             </div>
           </Carousel>

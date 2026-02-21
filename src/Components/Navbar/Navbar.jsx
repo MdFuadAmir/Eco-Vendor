@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="border-t border-gray-500 bg-white dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-800">
       <div className="container mx-auto">
         <div className="flex justify-between items-center py-4">
           {/* All Categories Button */}

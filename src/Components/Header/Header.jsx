@@ -48,7 +48,7 @@ const Header = () => {
       </div>
       {/*  */}
       <div
-        className={`w-full bg-white dark:bg-gray-900 z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
+        className={`w-full bg-white dark:bg-gray-800 z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
       >
         <div className="text-sm py-3 flex items-center justify-between dark:text-white  container gap-6">
           <div
@@ -93,7 +93,7 @@ const Header = () => {
       </div>
       {fixedHeader && <div className="h-16" />}
       {/* Desktop Navbar */}
-      <div className="hidden lg:block border-b border-gray-500">
+      <div className="hidden lg:block ">
         <Navbar />
       </div>
 

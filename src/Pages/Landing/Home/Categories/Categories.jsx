@@ -145,13 +145,15 @@ const categories = [
 
 const Categories = () => {
   return (
-    <div className="flex container pt-24">
+    <div className="flex container pt-12">
       <div
         className="grid grid-rows-2 grid-flow-col 
           auto-cols-[150px]
           gap-4
-          overflow-x-auto
-          scrollbar-hide! py-2"
+         overflow-x-auto
+         scroll-smooth
+         snap-x snap-mandatory
+   py-2"
       >
         {categories.map((cat) => (
           <Link
@@ -162,7 +164,7 @@ const Categories = () => {
             <img
               src={cat.image}
               alt={cat.name}
-              className="h-20 w-full object-contain mx-auto"
+              className="h-14 w-full object-contain mx-auto"
             />
             <p className="mt-2 text-sm font-medium">{cat.name}</p>
           </Link>
