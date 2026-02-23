@@ -1,0 +1,50 @@
+const ContentManagement = () => {
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6">🧾 Content Management</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <button className="btn btn-primary">Homepage Slider</button>
+        <button className="btn btn-secondary">Banner</button>
+        <button className="btn btn-warning">Offer Section</button>
+        <button className="btn btn-info">Blog / Article</button>
+        <button className="btn btn-accent">About Page</button>
+        <button className="btn btn-success">Contact Page</button>
+        <button className="btn btn-outline">SEO Meta Tags</button>
+      </div>
+
+      {/* Content Table */}
+      <div className="overflow-x-auto bg-white rounded-xl shadow">
+        <table className="table w-full">
+          <thead className="bg-gray-100">
+            <tr>
+              <th>Content Type</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Last Updated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {[1,2,3].map(i => (
+              <tr key={i}>
+                <td>Banner</td>
+                <td>Winter Sale</td>
+                <td><span className="badge badge-success">Published</span></td>
+                <td>20 Feb 2026</td>
+                <td className="space-x-1">
+                  <button className="btn btn-xs btn-outline">Edit</button>
+                  <button className="btn btn-xs btn-warning">Hide</button>
+                  <button className="btn btn-xs btn-error">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ContentManagement;

@@ -4,13 +4,19 @@ import { MdRocketLaunch } from "react-icons/md";
 import Search from "../Search/Search";
 import { useEffect, useState } from "react";
 import Logo from "../../Utils/Logo/Logo";
-import { IoIosGitCompare } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { BiTennisBall } from "react-icons/bi";
 const Header = () => {
   const [fixedHeader, setFixedHeader] = useState(false);
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,15 +54,15 @@ const Header = () => {
       </div>
       {/*  */}
       <div
-        className={`w-full bg-white dark:bg-gray-800 z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
+        className={`w-full bg-white dark:bg-gray-900 z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
       >
         <div className="text-sm py-3 flex items-center justify-between dark:text-white  container gap-6">
           <div
-            className={`${fixedHeader ? "flex" : "hidden"} md:flex hidden items-center w-[25%]`}
+            className={`${fixedHeader ? "flex" : "hidden"} md:flex hidden items-center w-fit `}
           >
             <Logo />
           </div>
-          <div className="w-full md:w-[40%]">
+          <div className="w-full md:w-[45%] ">
             <Search />
           </div>
           <div className="hidden md:flex lg:hidden items-center justify-end w-[30%]  gap-4">
@@ -67,26 +73,27 @@ const Header = () => {
               Free Home Delevery
             </div>
           </div>
-          <div className="hidden lg:flex items-center gap-4">
-            <Tooltip title="Compare">
-              <div className="hover:text-emerald-400 dark:text-white cursor-pointer">
-                <IoIosGitCompare size={25} />
-              </div>
-            </Tooltip>
+          <div className="hidden lg:flex items-center gap-4 ">
             <Tooltip title="Wishlist">
-              <div className="hover:text-emerald-400 dark:text-white cursor-pointer">
+              <Link
+                to={"/wishlist"}
+                className="hover:text-emerald-400 dark:text-white cursor-pointer"
+              >
                 <CiHeart size={25} />
-              </div>
+              </Link>
             </Tooltip>
             <Tooltip title="Cart">
-              <div className="hover:text-emerald-400 dark:text-white cursor-pointer">
+              <Link
+                to={"/cart"}
+                className="hover:text-emerald-400 dark:text-white cursor-pointer"
+              >
                 <IoCartOutline size={25} />
-              </div>
+              </Link>
             </Tooltip>
             <Tooltip title={"Account"}>
-              <div className="hidden lg:block">
+              <Link to={'/dashboard'} className="hidden lg:block">
                 <MdOutlineManageAccounts size={25} />
-              </div>
+              </Link>
             </Tooltip>
           </div>
         </div>
@@ -99,19 +106,23 @@ const Header = () => {
 
       {/* Bottom Navbar - Mobile only */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-300 dark:border-gray-700 flex justify-around items-center py-2 z-50">
-        <Link className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
-          <IoIosGitCompare size={24} />
-          <span className="text-xs">Compare</span>
+        <Link to="/" onClick={handleScrollTop} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+          <IoHomeOutline size={24} />
+          <span className="text-xs">Home</span>
         </Link>
-        <Link className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+
+        <Link
+          to={"/wishlist"}
+          className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400"
+        >
           <CiHeart size={24} />
           <span className="text-xs">Wishlist</span>
         </Link>
-        <Link className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+        <Link to={'/cart'} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
           <IoCartOutline size={24} />
           <span className="text-xs">Cart</span>
         </Link>
-        <Link className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+        <Link to={'/dashboard'} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
           <MdOutlineManageAccounts size={24} />
           <span className="text-xs">Account</span>
         </Link>

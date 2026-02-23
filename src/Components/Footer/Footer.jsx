@@ -2,7 +2,7 @@ import { FaRegCopyright } from "react-icons/fa";
 import Logo from "../../Utils/Logo/Logo";
 const Footer = () => {
   return (
-    <footer className="bg-slate-200/50 dark:bg-slate-800/50 pt-12">
+    <footer className="bg-slate-200 dark:bg-slate-900 pt-12">
       <div className="px-4 md:px-10 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-4 flex flex-col col-span-1">
           <Logo />

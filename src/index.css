@@ -7,6 +7,7 @@ body {
   font-optical-sizing: auto;
 }
 
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 .first {

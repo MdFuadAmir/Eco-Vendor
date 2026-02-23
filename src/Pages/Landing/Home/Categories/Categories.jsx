@@ -145,7 +145,7 @@ const categories = [
 
 const Categories = () => {
   return (
-    <div className="flex container pt-12">
+    <div className="flex container py-12">
       <div
         className="grid grid-rows-2 grid-flow-col 
           auto-cols-[150px]
@@ -157,7 +157,7 @@ const Categories = () => {
       >
         {categories.map((cat) => (
           <Link
-            className="rounded bg-white dark:bg-gray-800 p-2 text-center shadow hover:shadow-lg transition dark:text-white"
+            className="rounded bg-white dark:bg-neutral-800 p-2 text-center shadow hover:shadow-lg transition dark:text-white"
             to={cat.path}
             key={cat.id}
           >

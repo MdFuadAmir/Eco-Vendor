@@ -40,7 +40,7 @@ const AdsBanner = () => {
   };
 
   return (
-    <div className="relative container mx-auto">
+    <div className="relative container mx-auto py-12">
       {/* Left Button */}
       <button
         onClick={scrollLeft}

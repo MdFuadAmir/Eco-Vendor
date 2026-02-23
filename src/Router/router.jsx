@@ -3,6 +3,29 @@ import RootLayout from "../Layouts/RootLayout/RootLayout";
 import Home from "../Pages/Landing/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
+import MyWishlist from "../Pages/MyWishlist/MyWishlist";
+import Cart from "../Pages/Cart/Cart";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageSellers from "../Pages/Dashboard/Admin/ManageSellers/ManageSellers";
+import ManageModerators from "../Pages/Dashboard/Admin/ManageModerators/ManageModerators";
+import ManageProducts from "../Pages/Dashboard/Admin/ManageProducts/ManageProducts";
+import AdminManageOrders from "../Pages/Dashboard/Admin/AdminManageOrders/AdminManageOrders";
+import ManagePayments from "../Pages/Dashboard/Admin/ManagePayments/ManagePayments";
+import AnalyticsReports from "../Pages/Dashboard/Admin/AnalyticsReports/AnalyticsReports";
+import MarketingPromotion from "../Pages/Dashboard/Admin/MarketingPromotion/MarketingPromotion";
+import ContentManagement from "../Pages/Dashboard/Admin/ContentManagement/ContentManagement";
+import SecuritySystem from "../Pages/Dashboard/Admin/SecuritySystem/SecuritySystem";
+import Settings from "../Pages/Dashboard/Admin/Settings/Settings";
+import Finance from "../Pages/Dashboard/Vendor/Finance/Finance";
+import Analytics from "../Pages/Dashboard/Vendor/Analytics/Analytics";
+import AddProduct from "../Pages/Dashboard/Vendor/AddProduct/AddProduct";
+import MyProducts from "../Pages/Dashboard/Vendor/MyProducts/MyProducts";
+import SellerOrderManagement from "../Pages/Dashboard/Vendor/SellerOrderManagement/SellerOrderManagement";
+import ReturnRefund from "../Pages/Dashboard/Vendor/ReturnRefund/ReturnRefund";
+import ShopManagement from "../Pages/Dashboard/Vendor/ShopManagement/ShopManagement";
+import SellerMessages from "../Pages/Dashboard/Vendor/SellerMessages/SellerMessages";
+import MyOrders from "../Pages/Dashboard/Users/MyOrders/MyOrders";
+import AddressBook from "../Pages/Dashboard/Users/AddressBook/AddressBook";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+      },
+      {
+        path: "/wishlist",
+        Component: MyWishlist,
+      },
+      {
+        path: "/cart",
+        Component: Cart,
       },
     ],
   },
@@ -24,6 +55,104 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+    children: [
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage-sellers",
+        element: <ManageSellers />,
+      },
+      {
+        path: "manage-moderators",
+        element: <ManageModerators />,
+      },
+      {
+        path: "manage-products",
+        element: <ManageProducts />,
+      },
+      {
+        path: "admin-orders-management",
+        element: <AdminManageOrders />,
+      },
+      {
+        path: "manage-payments",
+        element: <ManagePayments />,
+      },
+      {
+        path: "analytics-reports",
+        element: <AnalyticsReports />,
+      },
+      {
+        path: "marketing-promotion",
+        element: <MarketingPromotion />,
+      },
+      {
+        path: "content-management",
+        element: <ContentManagement />,
+      },
+      {
+        path: "security-system",
+        element: <SecuritySystem />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "finance",
+        element: <Finance />,
+      },
+      {
+        path: "analytics",
+        element: <Analytics />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "my-products",
+        element: <MyProducts />,
+      },
+      {
+        path: "manage-orders",
+        element: <SellerOrderManagement />,
+      },
+      {
+        path: "return-refund",
+        element: <ReturnRefund />,
+      },
+      {
+        path: "shop-management",
+        element: <ShopManagement />,
+      },
+      {
+        path: "messages",
+        element: <SellerMessages />,
+      },
+      {
+        path: "My-orders",
+        element: <MyOrders />,
+      },
+      {
+        path: "messages",
+        element: <SellerMessages />,
+      },
+      {
+        path: "address-book",
+        element: <AddressBook />,
+      },
+      {
+        path: "messages",
+        element: <SellerMessages />,
+      },
+    ],
   },
 ]);
 export default router;

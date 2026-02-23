@@ -1,3 +1,4 @@
+import TopSell from "../../Products/TopSell";
 import AdsBanner from "./AdsBanner/AdsBanner";
 import Banner from "./Banner/Banner";
 import Categories from "./Categories/Categories";
@@ -9,10 +10,10 @@ const Home = () => {
     <div>
       <Banner />
       <Categories />
-      <p className="dark:text-white">Featurs produce sectoon</p>
+      <TopSell />
       <FreeShiping />
       <AdsBanner />
-      <p className="dark:text-white">Featurs produce </p>
+      <TopSell />
       <Features />
     </div>
   );

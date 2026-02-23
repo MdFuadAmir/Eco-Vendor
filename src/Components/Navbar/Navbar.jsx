@@ -36,9 +36,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800">
+    <div className="bg-white dark:bg-gray-900">
       <div className="container mx-auto">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-1">
           {/* All Categories Button */}
           <button
             onClick={toggleDrawer}
@@ -48,7 +48,7 @@ const Navbar = () => {
           </button>
 
           {/* Nav links */}
-          <ul className="hidden lg:flex justify-center gap-6 items-center dark:text-white">
+          <ul className="hidden lg:flex justify-center  gap-6 items-center dark:text-white">
             {navLinks}
           </ul>
 

@@ -41,12 +41,12 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="bg-white dark:bg-gray-700/10 py-10 my-12">
+    <div className="bg-white dark:bg-gray-800 py-10 my-12">
       <div className="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {features.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col items-center text-center p-4 rounded-lg shadow-sm hover:shadow-md transition bg-gray-50 dark:bg-gray-800"
+            className="flex flex-col items-center text-center p-4 rounded-lg shadow-sm hover:shadow-md transition bg-gray-50 dark:bg-neutral-800"
           >
             <div className="text-emerald-500 mb-3">{item.icon}</div>
             <h3 className="font-semibold text-gray-800 dark:text-white">
