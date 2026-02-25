@@ -1,58 +1,109 @@
-import { FaAddressBook, FaBagShopping } from "react-icons/fa6";
+import {
+  FaPlusCircle,
+  FaBoxOpen,
+  FaShoppingCart,
+  FaUndoAlt,
+  FaComments,
+  FaWallet,
+  FaChartLine,
+  FaStore,
+  FaBullhorn,
+  FaStar,
+  FaCog,
+} from "react-icons/fa";
+
 import MenuItem from "./MenuItem";
 
-const SellerMenu = ({closedware}) => {
+const SellerMenu = ({ closedware }) => {
   return (
     <div>
-      <ul className="space-y-2 border-b border-gray-200">
-          <MenuItem
-            labal={"Add Product"}
-            to={"/dashboard/add-product"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"My Products"}
-            to={"/dashboard/my-products"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Orders"}
-            to={"/dashboard/manage-orders"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Returns / Refunds"}
-            to={"/dashboard/return-refund"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Messages"}
-            to={"/dashboard/messages"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Finance"}
-            to={"/dashboard/finance"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Analytic"}
-            to={"/dashboard/analytics"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
-          <MenuItem
-            labal={"Shop"}
-            to={"/dashboard/shop-management"}
-            icon={FaAddressBook}
-            onClick={closedware}
-          />
+      <ul className="space-y-1">
+
+        {/* PRODUCTS */}
+        <MenuItem
+          label="Add Product"
+          to="/dashboard/add-product"
+          icon={FaPlusCircle}
+          onClick={closedware}
+        />
+
+        <MenuItem
+          label="My Products"
+          to="/dashboard/my-products"
+          icon={FaBoxOpen}
+          onClick={closedware}
+        />
+
+        {/* ORDERS */}
+        <MenuItem
+          label="Orders"
+          to="/dashboard/manage-orders"
+          icon={FaShoppingCart}
+          onClick={closedware}
+        />
+
+        <MenuItem
+          label="Returns / Refunds"
+          to="/dashboard/return-refund"
+          icon={FaUndoAlt}
+          onClick={closedware}
+        />
+
+        {/* COMMUNICATION */}
+        <MenuItem
+          label="Messages"
+          to="/dashboard/messages"
+          icon={FaComments}
+          onClick={closedware}
+        />
+
+        {/* FINANCE */}
+        <MenuItem
+          label="Finance"
+          to="/dashboard/finance"
+          icon={FaWallet}
+          onClick={closedware}
+        />
+
+        {/* ANALYTICS */}
+        <MenuItem
+          label="Analytics"
+          to="/dashboard/analytics"
+          icon={FaChartLine}
+          onClick={closedware}
+        />
+
+        {/* MARKETING */}
+        <MenuItem
+          label="Promotions"
+          to="/dashboard/promotions"
+          icon={FaBullhorn}
+          onClick={closedware}
+        />
+
+        <MenuItem
+          label="Reviews & Ratings"
+          to="/dashboard/reviews"
+          icon={FaStar}
+          onClick={closedware}
+        />
+
+        {/* SHOP */}
+        <MenuItem
+          label="Shop Management"
+          to="/dashboard/shop-management"
+          icon={FaStore}
+          onClick={closedware}
+        />
+
+        {/* SETTINGS */}
+        <MenuItem
+          label="Account Settings"
+          to="/dashboard/settings"
+          icon={FaCog}
+          onClick={closedware}
+        />
+
       </ul>
     </div>
   );

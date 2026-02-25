@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Mahfuzur Fuad",
+    "email": "fuad@gmail.com",
+    "role": "user",
+    "status": "active",
+    "orders": 12,
+    "wallet": 1200,
+    "complaints": 1
+  },
+  {
+    "id": 2,
+    "name": "Rakib Hasan",
+    "email": "rakib@gmail.com",
+    "role": "seller",
+    "status": "suspended",
+    "orders": 4,
+    "wallet": 300,
+    "complaints": 3
+  },
+  {
+    "id": 3,
+    "name": "Sadia Islam",
+    "email": "sadia@gmail.com",
+    "role": "user",
+    "status": "active",
+    "orders": 20,
+    "wallet": 5000,
+    "complaints": 0
+  },
+  {
+    "id": 4,
+    "name": "Imran Hossain",
+    "email": "imran@gmail.com",
+    "role": "moderator",
+    "status": "active",
+    "orders": 8,
+    "wallet": 900,
+    "complaints": 0
+  },
+  {
+    "id": 5,
+    "name": "Nusrat Jahan",
+    "email": "nusrat@gmail.com",
+    "role": "user",
+    "status": "suspended",
+    "orders": 2,
+    "wallet": 150,
+    "complaints": 2
+  },
+  {
+    "id": 6,
+    "name": "Tamim Iqbal",
+    "email": "tamim@gmail.com",
+    "role": "seller",
+    "status": "active",
+    "orders": 35,
+    "wallet": 8200,
+    "complaints": 1
+  },
+  {
+    "id": 7,
+    "name": "Rafi Ahmed",
+    "email": "rafi@gmail.com",
+    "role": "user",
+    "status": "active",
+    "orders": 6,
+    "wallet": 700,
+    "complaints": 0
+  },
+  {
+    "id": 8,
+    "name": "Mim Akter",
+    "email": "mim@gmail.com",
+    "role": "seller",
+    "status": "suspended",
+    "orders": 10,
+    "wallet": 1200,
+    "complaints": 4
+  },
+  {
+    "id": 9,
+    "name": "Shakib Al Hasan",
+    "email": "shakib@gmail.com",
+    "role": "moderator",
+    "status": "active",
+    "orders": 18,
+    "wallet": 4000,
+    "complaints": 1
+  },
+  {
+    "id": 10,
+    "name": "Ayesha Rahman",
+    "email": "ayesha@gmail.com",
+    "role": "user",
+    "status": "active",
+    "orders": 3,
+    "wallet": 250,
+    "complaints": 0
+  }
+]

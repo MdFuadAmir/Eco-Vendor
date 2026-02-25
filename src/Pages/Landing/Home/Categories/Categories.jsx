@@ -152,12 +152,12 @@ const Categories = () => {
           gap-4
          overflow-x-auto
          scroll-smooth
-         snap-x snap-mandatory
+         snap-x snap-mandatory no-scrollbar
    py-2"
       >
         {categories.map((cat) => (
           <Link
-            className="rounded bg-white dark:bg-neutral-800 p-2 text-center shadow hover:shadow-lg transition dark:text-white"
+            className="rounded bg-white dark:bg-gray-800 p-2 text-center shadow hover:shadow-lg transition dark:text-white"
             to={cat.path}
             key={cat.id}
           >

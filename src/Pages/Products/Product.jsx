@@ -4,7 +4,7 @@ import StarRating from "../../Components/StarRating/StarRating";
 const Product = ({ prod }) => {
   const { image, name, disc, rating, price, discprice } = prod;
   return (
-    <div className="bg-white dark:bg-neutral-800 px-3 py-2 rounded-lg hover:shadow-lg dark:shadow-gray-800 transition duratio-200">
+    <div className="bg-white dark:bg-gray-800 px-3 py-2 rounded-lg hover:shadow-lg dark:shadow-gray-800 transition duratio-200">
       <div className="flex justify-center">
         <img src={image} alt="" className="max-h-32 object-contain" />
       </div>

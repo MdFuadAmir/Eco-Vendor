@@ -7,9 +7,9 @@ import ThemeToggle from "../../Components/ThemeToggle/ThemeToggle";
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
 
-  const closedware = () =>{
+  const closedware = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <div className="h-screen flex overflow-hidden">
@@ -20,10 +20,10 @@ const DashboardLayout = () => {
           bg-gray-100 dark:bg-gray-900
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0 lg:static overflow-scroll
+          lg:translate-x-0 lg:static
         `}
       >
-        <Menu closedware={closedware}/>
+        <Menu closedware={closedware} />
       </aside>
 
       {/* ========== OVERLAY (mobile only) ========== */}
@@ -56,8 +56,9 @@ const DashboardLayout = () => {
         </header>
 
         {/* ========== MAIN CONTENT ========== */}
-        <main className="flex-1 pt-16 dark:bg-neutral-900 overflow-y-auto bg-gray-200">
+        <main className="flex-1  pt-16 overflow-y-auto bg-[#104f55]/10  dark:bg-[#16404D]">
           <Outlet />
+          {/* a3b18a  */}
         </main>
         {/* ========== THEME BUTTON ========== */}
         <div className="fixed bottom-12 right-6 z-50">

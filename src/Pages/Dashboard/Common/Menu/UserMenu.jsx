@@ -12,31 +12,31 @@ const UserMenu = ({ closedware }) => {
     <div>
       <ul className="border-b border-gray-400 space-y-2">
         <MenuItem
-          labal={"My Orders"}
+          label={"My Orders"}
           to={"/dashboard/my-orders"}
           icon={FaBagShopping}
           onClick={closedware}
         />
         <MenuItem
-          labal={"Cart"}
+          label={"Cart"}
           to={"/cart"}
           icon={FaCartPlus}
           onClick={closedware}
         />
         <MenuItem
-          labal={"Wishlist"}
+          label={"Wishlist"}
           to={"/wishlist"}
           icon={FaHeart}
           onClick={closedware}
         />
         <MenuItem
-          labal={"Address book"}
+          label={"Address book"}
           to={"/dashboard/address-book"}
           icon={FaAddressBook}
           onClick={closedware}
         />
         <MenuItem
-          labal={"Account Settings"}
+          label={"Account Settings"}
           to={"/dashboard/settings"}
           icon={RiUserSettingsFill}
           onClick={closedware}

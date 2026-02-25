@@ -1,11 +1,11 @@
 
-
-const AuthLayout = () => {
+const Private = () => {
     return (
         <div>
+
             
         </div>
     );
 };
 
-export default AuthLayout;
+export default Private;

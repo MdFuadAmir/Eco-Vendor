@@ -1,16 +1,22 @@
+import { FaBoxOpen } from "react-icons/fa";
+import { Link } from "react-router";
 const MyProducts = () => {
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">🛒 My Products</h2>
+      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-emerald-400">
+        <FaBoxOpen /> My Products
+      </h2>
 
       {/* Top Actions */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <input
           type="text"
           placeholder="Search product..."
-          className="input input-bordered w-1/3"
+          className="input input-bordered w-1/3 dark:bg-gray-800 dark:placeholder:text-gray-500 dark:text-gray-200"
         />
-        <button className="btn btn-primary btn-sm">+ Add New Product</button>
+        <Link to={"/dashboard/add-product"} className="btn btn-primary btn-sm">
+          + Add New Product
+        </Link>
       </div>
 
       {/* Products Table */}
@@ -42,7 +48,9 @@ const MyProducts = () => {
                 <td>
                   <div>
                     <p className="font-semibold">Product {item}</p>
-                    <p className="text-sm text-gray-500">Category: Electronics</p>
+                    <p className="text-sm text-gray-500">
+                      Category: Electronics
+                    </p>
                   </div>
                 </td>
 
@@ -56,9 +64,13 @@ const MyProducts = () => {
 
                 <td className="space-x-1">
                   <button className="btn btn-xs btn-outline">Edit</button>
-                  <button className="btn btn-xs btn-warning">Update Stock</button>
+                  <button className="btn btn-xs btn-warning">
+                    Update Stock
+                  </button>
                   <button className="btn btn-xs btn-info">Update Price</button>
-                  <button className="btn btn-xs btn-accent">Set Discount</button>
+                  <button className="btn btn-xs btn-accent">
+                    Set Discount
+                  </button>
                   <button className="btn btn-xs btn-error">Delete</button>
                 </td>
               </tr>
@@ -71,3 +83,8 @@ const MyProducts = () => {
 };
 
 export default MyProducts;
+
+
+
+
+

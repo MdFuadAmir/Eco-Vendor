@@ -2,7 +2,7 @@ import { FaTruckFast } from "react-icons/fa6";
 const FreeShiping = () => {
   return (
     <div className="py-12">
-      <div className="max-w-4xl mx-auto flex justify-between items-center px-4 md:px-6 py-8  bg-white dark:bg-neutral-800 rounded-lg">
+      <div className="max-w-4xl mx-auto flex justify-between items-center px-4 md:px-6 py-8  bg-white dark:bg-gray-800 rounded-lg">
         <div className="text-xl  flex items-center dark:text-white gap-3">
           <FaTruckFast />
           <p className="uppercase">Free delivery</p>

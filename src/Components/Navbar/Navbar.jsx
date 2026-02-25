@@ -25,6 +25,11 @@ const navLinks = (
         Contact
       </NavLink>
     </li>
+    <li>
+      <NavLink to="/social-login" className="hover:text-emerald-500 hover:border-b-2">
+        Login
+      </NavLink>
+    </li>
   </>
 );
 

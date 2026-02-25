@@ -5,7 +5,8 @@ import Header from "../../Components/Header/Header";
 
 const RootLayout = () => {
   return (
-    <div className="relative min-h-screen bg-slate-100 dark:bg-gray-900">
+    // dark:bg-[#001524]
+    <div className="relative min-h-screen bg-[#104f55]/10 dark:bg-[#16404D]">
       <div className="relative z-10">
         <Header />
         <div className="max-w-650 mx-auto min-h-screen">

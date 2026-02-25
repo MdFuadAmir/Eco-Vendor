@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../Layouts/RootLayout/RootLayout";
 import Home from "../Pages/Landing/Home/Home";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
-import AuthLayout from "../Layouts/AuthLayout/AuthLayout";
 import MyWishlist from "../Pages/MyWishlist/MyWishlist";
 import Cart from "../Pages/Cart/Cart";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
@@ -26,6 +25,9 @@ import ShopManagement from "../Pages/Dashboard/Vendor/ShopManagement/ShopManagem
 import SellerMessages from "../Pages/Dashboard/Vendor/SellerMessages/SellerMessages";
 import MyOrders from "../Pages/Dashboard/Users/MyOrders/MyOrders";
 import AddressBook from "../Pages/Dashboard/Users/AddressBook/AddressBook";
+import Login from "../Authentication/Login";
+import Register from "../Authentication/Register";
+import SocialLogin from "../Authentication/SocialLogin";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +46,23 @@ const router = createBrowserRouter([
         path: "/cart",
         Component: Cart,
       },
+      {
+        path: "/cart",
+        Component: Cart,
+      },
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
+      },
+      {
+        path: "/social-login",
+        Component: SocialLogin,
+      },
     ],
-  },
-  //   auth layout
-  {
-    path: "/",
-    element: <AuthLayout />,
   },
   //   dashboard layout
   {
