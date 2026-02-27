@@ -2,20 +2,20 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@custom-variant dark (&:where(.dark, .dark *));
 body {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
 }
 
+@theme {
+  --color-darkbody: #240046;
+  --color-darknav: #3c096c;
+  --color-lightbody: #e9ecef;
+  --color-lightnav: #ced4da;
+  --color-darkfooter: #47297b;
+  --color-lightfooter: #ced4da;
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-.first {
-  @apply bg-slate-950 text-slate-100;
-}
-
-.second {
-  @apply bg-slate-950 text-slate-100;
 }
 
 .container {
@@ -27,6 +27,6 @@ body {
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;     
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

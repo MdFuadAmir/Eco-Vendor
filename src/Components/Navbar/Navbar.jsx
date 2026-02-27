@@ -26,7 +26,10 @@ const navLinks = (
       </NavLink>
     </li>
     <li>
-      <NavLink to="/social-login" className="hover:text-emerald-500 hover:border-b-2">
+      <NavLink
+        to="/social-login"
+        className="hover:text-emerald-500 hover:border-b-2"
+      >
         Login
       </NavLink>
     </li>
@@ -41,7 +44,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900">
+    <div className="bg-lightnav dark:bg-darknav">
       <div className="container mx-auto">
         <div className="flex justify-between items-center py-1">
           {/* All Categories Button */}

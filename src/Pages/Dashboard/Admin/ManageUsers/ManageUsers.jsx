@@ -3,8 +3,8 @@ import DTitle from "../../../../Utils/DTitle/DTitle";
 import Search from "../../../../Components/Search/Search";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import useAxios from "../../../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
   const [search, setSearch] = useState("");
@@ -21,55 +21,82 @@ const ManageUsers = () => {
       return data;
     },
   });
-
-  // ✅ Status toggle (active <-> suspended)
-  const statusMutation = useMutation({
-    mutationFn: async (user) => {
-      const newStatus = user.status === "Active" ? "Suspended" : "Active";
-      return axios.patch(`/users/${user._id}/status`, {
-        status: newStatus,
-      });
+  //  Role change
+  const roleMutation = useMutation({
+    mutationFn: async ({ id, role }) => {
+      return await axiosPublic.patch(`/users/${id}/role`, { role });
     },
     onSuccess: () => {
+      toast.success("User role updated successfully");
       queryClient.invalidateQueries(["users"]);
     },
-  });
-
-  // ✅ Block / Unblock
-  const blockMutation = useMutation({
-    mutationFn: async (user) => {
-      return axios.patch(`/users/${user._id}/block`, {
-        blocked: !user.blocked,
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
+    onError: (error) => {
+      toast.error(error.message || "Failed to update role");
     },
   });
-
-  // ✅ Delete user
-  const deleteMutation = useMutation({
-    mutationFn: async (id) => {
-      return axios.delete(`/users/${id}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
-    },
-  });
-
-  // 🔍 Search
-  const filteredUsers = users.filter(
-    (u) =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase()),
-  );
-
   // 📩 Warning
   const sendWarning = () => {
     alert(`Warning sent to ${warningUser.name}: ${warningText}`);
     setWarningUser(null);
     setWarningText("");
   };
+  // ✅ Status toggle (active <-> suspended)
+  const statusMutation = useMutation({
+    mutationFn: async (user) => {
+      const newStatus = user.status === "Active" ? "Suspended" : "Active";
+      const res = await axiosPublic.patch(`/users/${user._id}/status`, {
+        status: newStatus,
+      });
+      return { ...res.data, newStatus };
+    },
+    onSuccess: (data) => {
+      if (data.newStatus === "Suspended") {
+        toast.error("User suspended successfully");
+      } else {
+        toast.success("User activated successfully");
+      }
+      queryClient.invalidateQueries(["users"]);
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "Failed to update status");
+    },
+  });
+  // ✅ Block / Unblock
+  const blockMutation = useMutation({
+    mutationFn: async (user) => {
+      return axiosPublic.patch(`/users/${user._id}/block`, {
+        blocked: !user.blocked,
+      });
+    },
+    onSuccess: () => {
+      toast.success("This account blocked successfully");
+      queryClient.invalidateQueries(["users"]);
+    },
+    onError: (error) => {
+      toast.error(
+        error.response?.data?.message || "Failed to blocked this account",
+      );
+    },
+  });
+  // ✅ Delete user
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      return await axiosPublic.delete(`/users/${id}`);
+    },
+    onSuccess: () => {
+      toast.success("User deleted successfully");
+      queryClient.invalidateQueries(["users"]);
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "Failed to delete user");
+    },
+  });
+  // 🔍 Search
+  const filteredUsers = users.filter(
+    (u) =>
+      u.name.toLowerCase().includes(search.toLowerCase()) ||
+      u.email.toLowerCase().includes(search.toLowerCase()),
+  );
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -103,14 +130,13 @@ const ManageUsers = () => {
             {filteredUsers.map((user) => (
               <tr
                 key={user._id}
-                className="bg-gray-100 dark:bg-gray-800 dark:text-gray-100"
+                className="bg-gray-100 dark:bg-[#0C7779] dark:text-gray-100"
               >
                 {/* User */}
                 <td>
                   <p className="font-semibold">{user.name}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>
                 </td>
-
                 {/* Status */}
                 <td>
                   <span
@@ -123,76 +149,58 @@ const ManageUsers = () => {
                     {user.status}
                   </span>
                 </td>
-
                 {/* Orders */}
                 <td>
                   <button className="btn btn-xs btn-info">
                     {user.orders} Orders
                   </button>
                 </td>
-
                 {/* Complaints */}
                 <td>
                   <button className="btn btn-xs btn-secondary">
                     {user.complaints} Complaints
                   </button>
                 </td>
-
                 {/* Role */}
                 <td>
                   <select
                     className="select select-sm dark:bg-gray-600"
                     value={user.role}
+                    onChange={(e) =>
+                      roleMutation.mutate({
+                        id: user._id,
+                        role: e.target.value,
+                      })
+                    }
                   >
                     <option value="user">User</option>
                     <option value="seller">Seller</option>
                     <option value="moderator">Moderator</option>
                   </select>
                 </td>
-
                 {/* Actions */}
                 <td className="space-x-2">
+                  {/* warning message  todo*/}
                   <button
                     className="btn btn-xs btn-error"
                     onClick={() => setWarningUser(user)}
                   >
                     Warn
                   </button>
-
                   {/* Status toggle */}
-                  {user.status === "active" ? (
-                    <button
-                      onClick={() => statusMutation.mutate(user)}
-                      className="btn btn-xs btn-outline"
-                    >
-                      Suspend
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => statusMutation.mutate(user)}
-                      className="btn btn-xs btn-outline text-emerald-400"
-                    >
-                      Active
-                    </button>
-                  )}
-
+                  <button
+                    onClick={() => statusMutation.mutate(user)}
+                    className={`btn btn-xs ${user.status === "Suspended" ? " btn-error" : "btn-success"}`}
+                  >
+                    {user.status === "Active" ? "Suspended" : "Active"}
+                  </button>
                   {/* Block toggle */}
-                  {user.blocked ? (
-                    <button
-                      onClick={() => blockMutation.mutate(user)}
-                      className="btn btn-xs btn-warning"
-                    >
-                      Unblock
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => blockMutation.mutate(user)}
-                      className="btn btn-xs btn-accent"
-                    >
-                      Block
-                    </button>
-                  )}
-
+                  <button
+                    onClick={() => blockMutation.mutate(user)}
+                    className={`btn btn-xs ${user.blocked ? " btn-warning" : "btn-accent"}`}
+                  >
+                    {user.blocked ? "Unblock" : "Block"}
+                  </button>
                   {/* Delete */}
                   <button
                     onClick={() => deleteMutation.mutate(user._id)}

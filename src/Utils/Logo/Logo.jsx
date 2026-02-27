@@ -25,9 +25,9 @@ const Logo = () => {
       {/* Text Logo */}
       <div className="leading-none">
         <h1 className="text-lg font-extrabold tracking-wide">
-          ECO<span className="text-gray-800 dark:text-white">-</span>
+          ECO<span className="text-gray-500 dark:text-white">-</span>
         </h1>
-        <p className="text-xs font-semibold tracking-widest text-gray-600 dark:text-gray-300">
+        <p className="text-xs font-semibold tracking-widest text-gray-700 dark:text-gray-300">
           VENDEX
         </p>
       </div>

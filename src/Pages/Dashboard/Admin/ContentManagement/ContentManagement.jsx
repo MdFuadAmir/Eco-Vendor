@@ -1,16 +1,19 @@
+import { FaFileAlt } from "react-icons/fa";
+import { Link, Outlet } from "react-router";
+
 const ContentManagement = () => {
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">🧾 Content Management</h2>
+      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-600 dark:text-white"><FaFileAlt/> Content Management</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <button className="btn btn-primary">Homepage Slider</button>
+        <Link to={'/dashboard/homepage-slider'} className="btn btn-primary">Homepage Slider</Link>
         <button className="btn btn-secondary">Banner</button>
         <button className="btn btn-warning">Offer Section</button>
         <button className="btn btn-info">Blog / Article</button>
         <button className="btn btn-accent">About Page</button>
         <button className="btn btn-success">Contact Page</button>
-        <button className="btn btn-outline">SEO Meta Tags</button>
+        <button className="btn btn-accent">SEO Meta Tags</button>
       </div>
 
       {/* Content Table */}
@@ -43,6 +46,7 @@ const ContentManagement = () => {
           </tbody>
         </table>
       </div>
+      <Outlet/>
     </div>
   );
 };

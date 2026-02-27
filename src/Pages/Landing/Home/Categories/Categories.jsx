@@ -157,7 +157,7 @@ const Categories = () => {
       >
         {categories.map((cat) => (
           <Link
-            className="rounded bg-white dark:bg-gray-800 p-2 text-center shadow hover:shadow-lg transition dark:text-white"
+            className="rounded bg-lightnav dark:bg-darknav/80 dark-card p-2 text-center shadow hover:shadow-lg transition text-lighttitle dark:text-darktitle"
             to={cat.path}
             key={cat.id}
           >
@@ -166,7 +166,7 @@ const Categories = () => {
               alt={cat.name}
               className="h-14 w-full object-contain mx-auto"
             />
-            <p className="mt-2 text-sm font-medium">{cat.name}</p>
+            <p className="mt-2 text-sm font-medium dark:text-white">{cat.name}</p>
           </Link>
         ))}
       </div>

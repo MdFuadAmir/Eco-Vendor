@@ -8,7 +8,6 @@ import { CiHeart } from "react-icons/ci";
 import { IoCartOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
-import { BiTennisBall } from "react-icons/bi";
 const Header = () => {
   const [fixedHeader, setFixedHeader] = useState(false);
   const handleScrollTop = () => {
@@ -32,7 +31,7 @@ const Header = () => {
   return (
     <header className="relative z-50">
       {/* Top Strip - Desktop only */}
-      <div className="py-2 border-y border-emerald-400 hidden md:block bg-emerald-400/20">
+      {/* <div className="py-2 hidden md:block bg-emerald-400/20">
         <div className="container">
           <div className="flex justify-between items-center">
             <div className="col-span-1 w-[50%]">
@@ -51,10 +50,10 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/*  */}
       <div
-        className={`w-full bg-white dark:bg-gray-900 z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
+        className={`bg-lightnav dark:bg-darknav w-full z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}
       >
         <div className="text-sm py-3 flex items-center justify-between dark:text-white  container gap-6">
           <div
@@ -91,7 +90,7 @@ const Header = () => {
               </Link>
             </Tooltip>
             <Tooltip title={"Account"}>
-              <Link to={'/dashboard'} className="hidden lg:block">
+              <Link to={"/dashboard"} className="hidden lg:block">
                 <MdOutlineManageAccounts size={25} />
               </Link>
             </Tooltip>
@@ -105,24 +104,34 @@ const Header = () => {
       </div>
 
       {/* Bottom Navbar - Mobile only */}
-      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-300 dark:border-gray-700 flex justify-around items-center py-2 z-50">
-        <Link to="/" onClick={handleScrollTop} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+      <div className="lg:hidden fixed bottom-0 left-0 w-full border-t border-gray-300 dark:border-gray-700 flex justify-around items-center py-2 z-50 bg-lightnav dark:bg-darknav">
+        <Link
+          to="/"
+          onClick={handleScrollTop}
+          className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
+        >
           <IoHomeOutline size={24} />
           <span className="text-xs">Home</span>
         </Link>
 
         <Link
           to={"/wishlist"}
-          className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400"
+          className="flex flex-col items-center dark:text-white hover:text-emerald-400"
         >
           <CiHeart size={24} />
           <span className="text-xs">Wishlist</span>
         </Link>
-        <Link to={'/cart'} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+        <Link
+          to={"/cart"}
+          className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
+        >
           <IoCartOutline size={24} />
           <span className="text-xs">Cart</span>
         </Link>
-        <Link to={'/dashboard'} className="flex flex-col items-center text-gray-700 dark:text-white hover:text-emerald-400">
+        <Link
+          to={"/dashboard"}
+          className="flex flex-col items-center dark:text-white hover:text-emerald-400"
+        >
           <MdOutlineManageAccounts size={24} />
           <span className="text-xs">Account</span>
         </Link>

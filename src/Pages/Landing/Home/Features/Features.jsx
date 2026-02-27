@@ -41,18 +41,18 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="bg-[#001524]/10 dark:bg-[#104f55]/50 py-10 my-12">
+    <div className="bg-lightnav/50 dark:bg-darknav/40 py-24 my-12">
       <div className="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {features.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col items-center text-center p-4 rounded-lg shadow-sm hover:shadow-md transition bg-gray-50 dark:bg-gray-900"
+            className="flex flex-col items-center text-center p-4 rounded-lg shadow-sm hover:shadow-md transition bg-lightnav dark:bg-darknav/80 "
           >
             <div className="text-emerald-500 mb-3">{item.icon}</div>
-            <h3 className="font-semibold text-gray-800 dark:text-white">
+            <h3 className="font-semibold dark:text-white">
               {item.title}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm dark:text-gray-400">
               {item.desc}
             </p>
           </div>

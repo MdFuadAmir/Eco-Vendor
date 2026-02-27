@@ -28,6 +28,7 @@ import AddressBook from "../Pages/Dashboard/Users/AddressBook/AddressBook";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
 import SocialLogin from "../Authentication/SocialLogin";
+import HomepageSlider from "../Pages/Dashboard/Admin/ContentManagement/HomepageSlider";
 
 const router = createBrowserRouter([
   {
@@ -102,10 +103,6 @@ const router = createBrowserRouter([
         element: <MarketingPromotion />,
       },
       {
-        path: "content-management",
-        element: <ContentManagement />,
-      },
-      {
         path: "security-system",
         element: <SecuritySystem />,
       },
@@ -164,6 +161,14 @@ const router = createBrowserRouter([
       {
         path: "messages",
         element: <SellerMessages />,
+      },
+      {
+        path: "content-management",
+        element: <ContentManagement />,
+      },
+      {
+        path: "homepage-slider",
+        element: <HomepageSlider />,
       },
     ],
   },

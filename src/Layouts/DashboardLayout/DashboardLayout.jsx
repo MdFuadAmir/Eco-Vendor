@@ -17,7 +17,7 @@ const DashboardLayout = () => {
       <aside
         className={`
           fixed top-0 left-0 z-40 h-full w-64
-          bg-gray-100 dark:bg-gray-900
+          bg-gray-800 dark:bg-gray-900
           transform transition-transform duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0 lg:static
@@ -37,12 +37,12 @@ const DashboardLayout = () => {
       {/* ========== RIGHT SIDE ========== */}
       <div className="flex-1 flex flex-col">
         {/* ========== NAVBAR ========== */}
-        <header className="fixed top-0 left-0 right-0 h-16 bg-gray-100 dark:bg-gray-900 shadow z-20 flex items-center justify-between px-4 lg:ml-64">
+        <header className="fixed top-0 left-0 right-0 h-16 bg-lightnav dark:bg-darknav/80 shadow z-20 flex items-center justify-between px-4 lg:ml-64">
           <div className="flex items-center gap-3">
             {/* Menu icon (only mobile) */}
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden text-gray-800 dark:text-white"
+              className="lg:hidden dark:text-white"
             >
               {open ? <BiX size={26} /> : <BiMenu size={26} />}
             </button>
@@ -56,7 +56,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* ========== MAIN CONTENT ========== */}
-        <main className="flex-1  pt-16 overflow-y-auto bg-[#104f55]/10  dark:bg-[#16404D]">
+        <main className="flex-1  pt-16 overflow-y-auto bg-lightbody dark:bg-darkbody">
           <Outlet />
           {/* a3b18a  */}
         </main>
