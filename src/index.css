@@ -15,7 +15,15 @@ body {
   --color-lightnav: #ced4da;
   --color-darkfooter: #47297b;
   --color-lightfooter: #ced4da;
+}
+:root {
+  --skeleton-base: #e5e7eb;
+  --skeleton-highlight: #f3f4f6;
+}
 
+.dark {
+  --skeleton-base: #1f2937;
+  --skeleton-highlight: #374151;
 }
 
 .container {

@@ -30,27 +30,6 @@ const Header = () => {
   }, []);
   return (
     <header className="relative z-50">
-      {/* Top Strip - Desktop only */}
-      {/* <div className="py-2 hidden md:block bg-emerald-400/20">
-        <div className="container">
-          <div className="flex justify-between items-center">
-            <div className="col-span-1 w-[50%]">
-              <p className="dark:text-white">
-                Get up 50% off new season styles, limited time only
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Link className=" dark:text-white hover:text-emerald-400">
-                Help Center
-              </Link>
-              <p className="py-3 border  dark:text-white"></p>
-              <Link className=" dark:text-white hover:text-emerald-400">
-                Track Order
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
       {/*  */}
       <div
         className={`bg-lightnav dark:bg-darknav w-full z-50 transition-all duration-300 ${fixedHeader ? "fixed top-0 left-0 shadow-md" : "relative"}`}

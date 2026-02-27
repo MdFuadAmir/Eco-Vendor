@@ -16,12 +16,12 @@ const navLinks = (
       </NavLink>
     </li>
     <li>
-      <NavLink to="/" className="hover:text-emerald-500 hover:border-b-2">
+      <NavLink to="/about" className="hover:text-emerald-500 hover:border-b-2">
         About
       </NavLink>
     </li>
     <li>
-      <NavLink to="/" className="hover:text-emerald-500 hover:border-b-2">
+      <NavLink to="/contact" className="hover:text-emerald-500 hover:border-b-2">
         Contact
       </NavLink>
     </li>

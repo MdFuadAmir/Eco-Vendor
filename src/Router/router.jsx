@@ -29,6 +29,9 @@ import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
 import SocialLogin from "../Authentication/SocialLogin";
 import HomepageSlider from "../Pages/Dashboard/Admin/ContentManagement/HomepageSlider";
+import OfferSlider from "../Pages/Dashboard/Admin/ContentManagement/OfferSlider";
+import Contact from "../Pages/Contact/Contact";
+import About from "../Pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/wishlist",
@@ -166,9 +177,14 @@ const router = createBrowserRouter([
         path: "content-management",
         element: <ContentManagement />,
       },
+
       {
         path: "homepage-slider",
         element: <HomepageSlider />,
+      },
+      {
+        path: "offer-slider",
+        element: <OfferSlider />,
       },
     ],
   },

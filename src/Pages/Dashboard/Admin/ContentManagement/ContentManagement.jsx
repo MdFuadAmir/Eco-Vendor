@@ -4,13 +4,17 @@ import { Link, Outlet } from "react-router";
 const ContentManagement = () => {
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-600 dark:text-white"><FaFileAlt/> Content Management</h2>
+      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-600 dark:text-white">
+        <FaFileAlt /> Content Management
+      </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <Link to={'/dashboard/homepage-slider'} className="btn btn-primary">Homepage Slider</Link>
-        <button className="btn btn-secondary">Banner</button>
-        <button className="btn btn-warning">Offer Section</button>
-        <button className="btn btn-info">Blog / Article</button>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg: lg:grid-cols-5 gap-4 mb-6">
+        <Link to={"/dashboard/homepage-slider"} className="btn btn-primary">
+          Homepage Slider
+        </Link>
+        <Link to={"/dashboard/offer-slider"} className="btn btn-secondary">
+          Offer Slider
+        </Link>
         <button className="btn btn-accent">About Page</button>
         <button className="btn btn-success">Contact Page</button>
         <button className="btn btn-accent">SEO Meta Tags</button>
@@ -30,11 +34,13 @@ const ContentManagement = () => {
           </thead>
 
           <tbody>
-            {[1,2,3].map(i => (
+            {[1, 2, 3].map((i) => (
               <tr key={i}>
                 <td>Banner</td>
                 <td>Winter Sale</td>
-                <td><span className="badge badge-success">Published</span></td>
+                <td>
+                  <span className="badge badge-success">Published</span>
+                </td>
                 <td>20 Feb 2026</td>
                 <td className="space-x-1">
                   <button className="btn btn-xs btn-outline">Edit</button>
@@ -46,7 +52,7 @@ const ContentManagement = () => {
           </tbody>
         </table>
       </div>
-      <Outlet/>
+      <Outlet />
     </div>
   );
 };
