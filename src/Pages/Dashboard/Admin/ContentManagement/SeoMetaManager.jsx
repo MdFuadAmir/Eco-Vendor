@@ -77,7 +77,8 @@ const SeoMetaManager = () => {
 
   return (
     <div className="p-6">
-      <DTitle label={"SEO Meta Manager"} icon={TbSeo} />
+      <div className="flex justify-between items-center gap-4">
+        <DTitle label={"SEO Meta Manager"} icon={TbSeo} />
       <button
         className="btn btn-primary mb-4"
         onClick={() => {
@@ -88,6 +89,7 @@ const SeoMetaManager = () => {
       >
         <FaPlus /> Add New Meta
       </button>
+      </div>
 
       <div className="overflow-x-auto mx-auto max-w-4xl bg-white dark:bg-darkfooter/90 rounded-xl shadow">
         <table className="table w-full">
@@ -142,7 +144,7 @@ const SeoMetaManager = () => {
               {selectedMeta ? "Edit Meta" : "Add New Meta"}
             </h3>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-                <label className="dark:text-gray-300">Page</label>
+              <label className="dark:text-gray-300">Page</label>
               <input
                 {...register("page", { required: true })}
                 placeholder="Page Name"

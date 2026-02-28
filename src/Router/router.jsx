@@ -33,6 +33,13 @@ import OfferSlider from "../Pages/Dashboard/Admin/ContentManagement/OfferSlider"
 import Contact from "../Pages/Contact/Contact";
 import About from "../Pages/About/About";
 import SeoMetaManager from "../Pages/Dashboard/Admin/ContentManagement/SeoMetaManager";
+import ContentOverview from "../Pages/Dashboard/Admin/ContentManagement/ContentOverview";
+import ManageCategories from "../Pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import CategoriOverview from "../Pages/Dashboard/Admin/ManageCategories/CategoriOverview";
+import Categories from "../Pages/Dashboard/Admin/ManageCategories/Categories";
+import Subcategories from "../Pages/Dashboard/Admin/ManageCategories/Subcategories";
+import Brands from "../Pages/Dashboard/Admin/ManageCategories/Brands";
+import Attributes from "../Pages/Dashboard/Admin/ManageCategories/Attributes";
 
 const router = createBrowserRouter([
   {
@@ -177,20 +184,52 @@ const router = createBrowserRouter([
       {
         path: "content-management",
         element: <ContentManagement />,
+        children: [
+          {
+            index: true,
+            element: <ContentOverview />,
+          },
+          {
+            path: "homepage-slider",
+            element: <HomepageSlider />,
+          },
+          {
+            path: "offer-slider",
+            element: <OfferSlider />,
+          },
+          {
+            path: "seo-manager",
+            element: <SeoMetaManager />,
+          },
+        ],
       },
-
       {
-        path: "homepage-slider",
-        element: <HomepageSlider />,
-      },
-      {
-        path: "offer-slider",
-        element: <OfferSlider />,
-      },
-      {
-        path: "seo-manager",
-        element: <SeoMetaManager />,
-      },
+        path:"categories-management",
+        element: <ManageCategories/>,
+        children:[
+          {
+            index:true,
+            element: <CategoriOverview/>
+          },
+          {
+            path:'categories',
+            element: <Categories/>
+          },
+          {
+            path:'subcategories',
+            element:<Subcategories/>
+          },
+          {
+            path:'brands',
+            element:<Brands/>
+          },
+          {
+            path:'attributes',
+            element:<Attributes/>
+          },
+          
+        ]
+      }
     ],
   },
 ]);

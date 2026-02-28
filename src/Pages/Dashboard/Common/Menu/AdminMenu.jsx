@@ -51,7 +51,7 @@ const AdminMenu = ({ closedware }) => {
 
         <MenuItem
           label="Categories & Brands"
-          to="/dashboard/manage-categories"
+          to="/dashboard/categories-management"
           icon={FaTags}
           onClick={closedware}
         />
