@@ -32,6 +32,7 @@ import HomepageSlider from "../Pages/Dashboard/Admin/ContentManagement/HomepageS
 import OfferSlider from "../Pages/Dashboard/Admin/ContentManagement/OfferSlider";
 import Contact from "../Pages/Contact/Contact";
 import About from "../Pages/About/About";
+import SeoMetaManager from "../Pages/Dashboard/Admin/ContentManagement/SeoMetaManager";
 
 const router = createBrowserRouter([
   {
@@ -185,6 +186,10 @@ const router = createBrowserRouter([
       {
         path: "offer-slider",
         element: <OfferSlider />,
+      },
+      {
+        path: "seo-manager",
+        element: <SeoMetaManager />,
       },
     ],
   },

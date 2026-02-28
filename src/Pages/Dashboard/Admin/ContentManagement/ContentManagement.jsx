@@ -15,9 +15,7 @@ const ContentManagement = () => {
         <Link to={"/dashboard/offer-slider"} className="btn btn-secondary">
           Offer Slider
         </Link>
-        <button className="btn btn-accent">About Page</button>
-        <button className="btn btn-success">Contact Page</button>
-        <button className="btn btn-accent">SEO Meta Tags</button>
+        <Link to={"/dashboard/seo-manager"} className="btn btn-accent">SEO Meta Tags</Link>
       </div>
 
       {/* Content Table */}
