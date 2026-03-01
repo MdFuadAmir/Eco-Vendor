@@ -40,6 +40,8 @@ import Categories from "../Pages/Dashboard/Admin/ManageCategories/Categories";
 import Subcategories from "../Pages/Dashboard/Admin/ManageCategories/Subcategories";
 import Brands from "../Pages/Dashboard/Admin/ManageCategories/Brands";
 import Attributes from "../Pages/Dashboard/Admin/ManageCategories/Attributes";
+import SellerRequest from "../Pages/Dashboard/Users/SellerRequest/SellerRequest";
+import AdminSellerRequests from "../Pages/Dashboard/Admin/AdminSellerRequests/AdminSellerRequests";
 
 const router = createBrowserRouter([
   {
@@ -90,8 +92,16 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
+        path: "request-for-seller",
+        element: <SellerRequest />,
+      },
+      {
         path: "manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "seller-requests",
+        element: <AdminSellerRequests />,
       },
       {
         path: "manage-sellers",

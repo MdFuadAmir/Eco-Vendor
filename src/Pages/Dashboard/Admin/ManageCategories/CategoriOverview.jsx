@@ -82,7 +82,7 @@ export default CategoryOverview;
 // ✅ Custom Card component
 const Cards = ({ title, number, loading }) => {
   return (
-    <div className="stat bg-base-200 dark:bg-gray-800 rounded-lg p-4">
+    <div className="stat bg-base-200 dark:bg-darkbody rounded-lg p-4">
       <div className="stat-title dark:text-gray-400">{title}</div>
       <div className="stat-value dark:text-gray-200">
         {loading ? <Skeleton width={50} /> : number}

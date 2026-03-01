@@ -113,9 +113,9 @@ const ManageUsers = () => {
         />
       </div>
 
-      <div className="overflow-x-auto rounded-xl shadow">
+      <div className="overflow-x-auto mx-auto bg-white dark:bg-darkfooter/90 rounded-xl shadow">
         <table className="table w-full">
-          <thead className="bg-white dark:bg-gray-900 dark:text-white">
+          <thead className="bg-gray-100 dark:bg-darknav dark:text-white">
             <tr>
               <th>User</th>
               <th>Status</th>
@@ -130,7 +130,7 @@ const ManageUsers = () => {
             {filteredUsers.map((user) => (
               <tr
                 key={user._id}
-                className="bg-gray-100 dark:bg-[#0C7779] dark:text-gray-100"
+                className=" dark:text-gray-100"
               >
                 {/* User */}
                 <td>
@@ -164,7 +164,7 @@ const ManageUsers = () => {
                 {/* Role */}
                 <td>
                   <select
-                    className="select select-sm dark:bg-gray-600"
+                    className="select select-sm dark:bg-darkbody"
                     value={user.role}
                     onChange={(e) =>
                       roleMutation.mutate({
@@ -176,6 +176,7 @@ const ManageUsers = () => {
                     <option value="user">User</option>
                     <option value="seller">Seller</option>
                     <option value="moderator">Moderator</option>
+                    <option value="admin">Admin</option>
                   </select>
                 </td>
                 {/* Actions */}
@@ -214,7 +215,6 @@ const ManageUsers = () => {
           </tbody>
         </table>
       </div>
-
       {/* Warning Modal */}
       {warningUser && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">

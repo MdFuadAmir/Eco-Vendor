@@ -18,7 +18,12 @@ const AdminMenu = ({ closedware }) => {
   return (
     <div>
       <ul className="space-y-1">
-
+        <MenuItem
+          label="Manage Moderator"
+          to="/dashboard/manage-moderators"
+          icon={FaUserShield}
+          onClick={closedware}
+        />
         {/* USERS */}
         <MenuItem
           label="Manage Users"
@@ -26,20 +31,19 @@ const AdminMenu = ({ closedware }) => {
           icon={FaUsersCog}
           onClick={closedware}
         />
-
         <MenuItem
           label="Manage Sellers"
           to="/dashboard/manage-sellers"
           icon={FaUserTie}
           onClick={closedware}
         />
-
         <MenuItem
-          label="Manage Moderators"
-          to="/dashboard/manage-moderators"
-          icon={FaUserShield}
+          label="Manage seller request"
+          to="/dashboard/seller-requests"
+          icon={FaFileAlt}
           onClick={closedware}
         />
+        
 
         {/* PRODUCTS */}
         <MenuItem
@@ -49,12 +53,7 @@ const AdminMenu = ({ closedware }) => {
           onClick={closedware}
         />
 
-        <MenuItem
-          label="Categories & Brands"
-          to="/dashboard/categories-management"
-          icon={FaTags}
-          onClick={closedware}
-        />
+        
 
         {/* ORDERS */}
         <MenuItem
@@ -94,11 +93,24 @@ const AdminMenu = ({ closedware }) => {
           icon={FaChartBar}
           onClick={closedware}
         />
-
+        {/* categories */}
+        <MenuItem
+          label="Categories & Brands"
+          to="/dashboard/categories-management"
+          icon={FaTags}
+          onClick={closedware}
+        />
         {/* CONTENT */}
         <MenuItem
           label="Content Management"
           to="/dashboard/content-management"
+          icon={FaFileAlt}
+          onClick={closedware}
+        />
+        
+        <MenuItem
+          label="Seller request"
+          to="/dashboard/request-for-seller"
           icon={FaFileAlt}
           onClick={closedware}
         />

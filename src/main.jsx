@@ -12,12 +12,12 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <SkeletonTheme baseColor="var(--skeleton-base)" highlightColor="var(--skeleton-highlight)">
       <AuthProvider>
+      <SkeletonTheme baseColor="var(--skeleton-base)" highlightColor="var(--skeleton-highlight)">
       <RouterProvider router={router} />
       <Toaster position="bottom-right" reverseOrder={false} />
-      </AuthProvider>
       </SkeletonTheme>
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

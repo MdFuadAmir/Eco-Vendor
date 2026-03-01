@@ -16,15 +16,15 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     try {
-      await login(data.email,data.password);
-      toast.success("Login Successfully")
+      await login(data.email, data.password);
+      toast.success("Login Successfully");
       navigate(from, { replace: true });
       axiosPublic
         .patch("/users/last-login", {
           email: data.email,
-          lastLogin: new Date().toDateString(),
+          lastLogin: new Date().toISOString(),
         })
         .catch((error) => {
           toast.error(error.message);

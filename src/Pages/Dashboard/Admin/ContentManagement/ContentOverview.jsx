@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../../Hooks/useAxios";
 import Skeleton from "react-loading-skeleton";
+import { AiOutlineDashboard } from "react-icons/ai";
 const ContentOverview = () => {
   const axiosPublic = useAxios();
 
@@ -27,8 +28,8 @@ const ContentOverview = () => {
   });
   return (
     <div className="p-4 bg-base-100 dark:bg-darknav/80 rounded-xl shadow">
-      <h3 className="text-lg font-semibold mb-2 dark:text-white">
-        Content Overview
+      <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2">
+        <AiOutlineDashboard/> Content Overview
       </h3>
       <p className="text-sm text-gray-500 dark:text-gray-200">
         Select a content section above to manage homepage sliders, offers, and
@@ -60,9 +61,9 @@ export default ContentOverview;
 
 const Cards = ({ title, number }) => {
   return (
-    <div className=" stat bg-base-200 dark:bg-gray-800 rounded">
-      <div className="text-xs  dark:text-gray-300">{title}</div>
-      <div className="text-2xl font-bold dark:text-white">{number}</div>
+    <div className=" stat bg-base-200 dark:bg-darkbody rounded">
+      <div className="text-xs  dark:text-gray-400">{title}</div>
+      <div className="text-2xl font-bold dark:text-gray-200">{number}</div>
     </div>
   );
 };
