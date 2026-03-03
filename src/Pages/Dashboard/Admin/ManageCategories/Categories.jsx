@@ -92,7 +92,9 @@ const Categories = () => {
     <div>
       {/* Header */}
       <div className="flex justify-between mb-3">
-        <h1 className="text-xl font-bold dark:text-white flex items-center gap-2"><FaList/> Categories</h1>
+        <h1 className="text-xl font-bold dark:text-white flex items-center gap-2">
+          <FaList /> Categories
+        </h1>
         <button onClick={openAddModal} className="btn btn-primary">
           <FaPlus /> Add Category
         </button>
@@ -192,34 +194,35 @@ const Categories = () => {
       </div>
 
       {/* Modal */}
-      {/* {open && (
+      {open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded w-96">
-            <h3 className="text-lg font-bold mb-3">
+          <div className="bg-white dark:bg-darknav p-6 rounded-xl w-full max-w-md shadow-lg">
+            <h3 className="text-lg font-bold mb-4 dark:text-white">
               {editing ? "Edit Category" : "Add Category"}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-3">
+              {/* Category Name */}
               <input
                 type="text"
                 placeholder="Category Name"
-                className="input input-bordered w-full"
+                className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
-
+              {/* Slug */}
               <input
                 type="text"
                 placeholder="Slug"
-                className="input input-bordered w-full"
+                className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
                 value={form.slug}
                 onChange={(e) => setForm({ ...form, slug: e.target.value })}
                 required
               />
-
+              {/* Status */}
               <select
-                className="select select-bordered w-full"
+                className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value })}
               >
@@ -227,8 +230,15 @@ const Categories = () => {
                 <option value="inactive">Inactive</option>
               </select>
 
-              <div className="flex justify-end gap-2">
-                <button type="button" onClick={closeModal} className="btn">
+              
+
+              {/* Buttons */}
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="btn btn-error"
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
@@ -238,58 +248,7 @@ const Categories = () => {
             </form>
           </div>
         </div>
-      )} */}
-      {open && (
-  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="bg-white dark:bg-darknav p-6 rounded-xl w-full max-w-md shadow-lg">
-      <h3 className="text-lg font-bold mb-4 dark:text-white">
-        {editing ? "Edit Category" : "Add Category"}
-      </h3>
-
-      <form onSubmit={handleSubmit} className="space-y-3">
-        {/* Category Name */}
-        <input
-          type="text"
-          placeholder="Category Name"
-          className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          required
-        />
-
-        {/* Slug */}
-        <input
-          type="text"
-          placeholder="Slug"
-          className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
-          value={form.slug}
-          onChange={(e) => setForm({ ...form, slug: e.target.value })}
-          required
-        />
-
-        {/* Status */}
-        <select
-          className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
-          value={form.status}
-          onChange={(e) => setForm({ ...form, status: e.target.value })}
-        >
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-
-        {/* Buttons */}
-        <div className="flex justify-end gap-2 mt-4">
-          <button type="button" onClick={closeModal} className="btn btn-error">
-            Cancel
-          </button>
-          <button type="submit" className="btn btn-primary">
-            {editing ? "Update" : "Create"}
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 };

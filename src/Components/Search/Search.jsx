@@ -2,11 +2,11 @@ import { IoSearch } from "react-icons/io5";
 import Button from "@mui/material/Button";
 const Search = ({ value, onChange, placeholder = "Search..." }) => {
   return (
-    <div className="w-full h-12 bg-gray-200 dark:bg-gray-700 rounded-lg  relative">
+    <div className="w-full h-12 bg-violet-500/20 dark:bg-violet-900 rounded-lg  relative">
       <input
         type="text"
         placeholder={placeholder}
-        className=" placeholder:text-gray-500 text-black dark:text-white w-full h-full px-4 focus:outline-none"
+        className=" placeholder:text-gray-600 dark:placeholder:text-gray-400 text-black dark:text-white w-full h-full px-4 focus:outline-none"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

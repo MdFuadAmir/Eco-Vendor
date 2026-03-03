@@ -4,10 +4,16 @@ import useAxios from "../../../../Hooks/useAxios";
 import toast from "react-hot-toast";
 import DTitle from "../../../../Utils/DTitle/DTitle";
 import { FaStore } from "react-icons/fa6";
+import Search from "../../../../Components/Search/Search";
+import WarningButton from "../../../../Components/WarningButton/WarningButton";
+
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const AdminSellerManagement = () => {
   const axiosPublic = useAxios();
   const queryClient = useQueryClient();
+  const [search, setSearch] = useState("");
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedSeller, setSelectedSeller] = useState(null);
@@ -53,11 +59,24 @@ const AdminSellerManagement = () => {
     setModalOpen(true);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  const filteredSellers = sellers.filter(
+    (s) =>
+      s.name.toLowerCase().includes(search.toLowerCase()) ||
+      s.email.toLowerCase().includes(search.toLowerCase()) ||
+      s.sellerInfo?.shopName?.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <div className="p-6">
       <DTitle label={"Manage Sellers"} icon={FaStore} />
+
+      <div className="w-md pb-6">
+        <Search
+          value={search}
+          onChange={setSearch}
+          placeholder="Search user by name or email"
+        />
+      </div>
 
       <div className="overflow-x-auto bg-white dark:bg-darkfooter/90 rounded-xl shadow mt-4">
         <table className="table w-full">
@@ -74,76 +93,116 @@ const AdminSellerManagement = () => {
           </thead>
 
           <tbody className="dark:text-gray-200">
-            {sellers.map((seller) => (
-              <tr key={seller._id}>
-                {/* Seller Info */}
-                <td>
-                  <p className="font-semibold">{seller.name}</p>
-                  <p className="text-sm text-gray-500">{seller.email}</p>
-                  <p className="text-sm text-gray-400">
-                    {seller.sellerInfo?.shopName}
-                  </p>
-                </td>
+            {isLoading
+              ? Array(6)
+                  .fill(0)
+                  .map((_, i) => (
+                    <tr key={i}>
+                      <td>
+                        <Skeleton height={14} width={120} />
+                        <Skeleton height={12} width={160} />
+                        <Skeleton height={12} width={140} />
+                      </td>
+                      <td>
+                        <Skeleton height={30} width={70} />
+                      </td>
+                      <td>
+                        <Skeleton height={30} width={90} />
+                      </td>
+                      <td>
+                        <Skeleton height={30} width={90} />
+                      </td>
+                      <td>
+                        <Skeleton height={20} width={60} />
+                      </td>
+                      <td>
+                        <Skeleton height={30} width={80} />
+                      </td>
+                      <td className="flex gap-2">
+                        <Skeleton height={30} width={60} />
+                        <Skeleton height={30} width={60} />
+                        <Skeleton height={30} width={70} />
+                      </td>
+                    </tr>
+                  ))
+              : filteredSellers.map((seller) => (
+                  <tr key={seller._id}>
+                    <td>
+                      <p className="font-semibold">{seller.name}</p>
+                      <p className="text-sm text-gray-500">{seller.email}</p>
+                      <p className="text-sm text-gray-400">
+                        {seller.sellerInfo?.shopName}
+                      </p>
+                    </td>
 
-                {/* Verification */}
-                <td>
-                  <button
-                    onClick={() => handleView(seller)}
-                    className="btn btn-xs btn-info"
-                  >
-                    View Doc
-                  </button>
-                </td>
-                {/* Products count */}
-                <td><button className="btn btn-xs btn-accent">Set Limit</button></td>
+                    <td>
+                      <button
+                        onClick={() => handleView(seller)}
+                        className="btn btn-xs btn-info"
+                      >
+                        View Doc
+                      </button>
+                    </td>
 
-                {/* Commission */}
-                <td><button className="btn btn-xs btn-accent">Set Commition</button></td>
+                    <td>
+                      <button className="btn btn-xs btn-accent">
+                        Set Limit
+                      </button>
+                    </td>
 
-                {/* Rating */}
-                <td>
-                  {seller.sellerInfo?.rating ? (
-                    <span className="flex items-center gap-1">
-                      {seller.sellerInfo.rating.toFixed(1)}
-                      <span className="text-yellow-400">★</span>
-                    </span>
-                  ) : (
-                    "N/A"
-                  )}
-                </td>
+                    <td>
+                      <button className="btn btn-xs btn-accent">
+                        Set Commition
+                      </button>
+                    </td>
 
-                {/* Payout */}
-                <td><button className="btn btn-xs">Payment</button></td>
+                    <td>
+                      {seller.sellerInfo?.rating ? (
+                        <span className="flex items-center gap-1">
+                          {seller.sellerInfo.rating.toFixed(1)}
+                          <span className="text-yellow-400">★</span>
+                        </span>
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
 
-                {/* Actions */}
-                <td className="space-x-2">
-                  <button
-                    onClick={() => banToggleMutation.mutate(seller)}
-                    className={`btn btn-xs ${
-                      seller.blocked ? "btn-success" : "btn-error"
-                    }`}
-                  >
-                    {seller.blocked ? "Unblock" : "Block"}
-                  </button>
+                    <td>
+                      <button className="btn btn-xs">Payment</button>
+                    </td>
 
-                  <button
-                    onClick={() => suspendToggleMutation.mutate(seller)}
-                    className="btn btn-xs btn-warning"
-                  >
-                    {seller.status === "Suspended" ? "Unsuspend" : "Suspend"}
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    <td className="space-x-2">
+                      <WarningButton user={seller} />
+
+                      <button
+                        onClick={() => banToggleMutation.mutate(seller)}
+                        className={`btn btn-xs ${
+                          seller.blocked ? "btn-success" : "btn-error"
+                        }`}
+                      >
+                        {seller.blocked ? "Unblock" : "Block"}
+                      </button>
+
+                      <button
+                        onClick={() => suspendToggleMutation.mutate(seller)}
+                        className="btn btn-xs btn-warning"
+                      >
+                        {seller.status === "Suspended"
+                          ? "Unsuspend"
+                          : "Suspend"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
 
-        {sellers.length === 0 && (
+        {!isLoading && sellers.length === 0 && (
           <p className="text-center py-6 text-gray-500">No sellers found</p>
         )}
       </div>
 
-      {/* ===== Modal for View Seller Info ===== */}
+      {/* ===== Modal ===== */}
       {modalOpen && selectedSeller && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
           <div className="bg-white dark:bg-darknav rounded-xl p-6 max-w-2xl w-full relative">

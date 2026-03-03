@@ -42,6 +42,7 @@ import Brands from "../Pages/Dashboard/Admin/ManageCategories/Brands";
 import Attributes from "../Pages/Dashboard/Admin/ManageCategories/Attributes";
 import SellerRequest from "../Pages/Dashboard/Users/SellerRequest/SellerRequest";
 import AdminSellerRequests from "../Pages/Dashboard/Admin/AdminSellerRequests/AdminSellerRequests";
+import EditProduct from "../Pages/Dashboard/Vendor/AddProduct/EditProduct";
 
 const router = createBrowserRouter([
   {
@@ -92,16 +93,8 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "request-for-seller",
-        element: <SellerRequest />,
-      },
-      {
         path: "manage-users",
         element: <ManageUsers />,
-      },
-      {
-        path: "seller-requests",
-        element: <AdminSellerRequests />,
       },
       {
         path: "manage-sellers",
@@ -110,6 +103,40 @@ const router = createBrowserRouter([
       {
         path: "manage-moderators",
         element: <ManageModerators />,
+      },
+      {
+        path: "seller-requests",
+        element: <AdminSellerRequests />,
+      },
+      {
+        path: "categories-management",
+        element: <ManageCategories />,
+        children: [
+          {
+            index: true,
+            element: <CategoriOverview />,
+          },
+          {
+            path: "categories",
+            element: <Categories />,
+          },
+          {
+            path: "subcategories",
+            element: <Subcategories />,
+          },
+          {
+            path: "brands",
+            element: <Brands />,
+          },
+          {
+            path: "attributes",
+            element: <Attributes />,
+          },
+        ],
+      },
+      {
+        path: "request-for-seller",
+        element: <SellerRequest />,
       },
       {
         path: "manage-products",
@@ -158,6 +185,10 @@ const router = createBrowserRouter([
       {
         path: "my-products",
         element: <MyProducts />,
+      },
+      {
+        path: "/dashboard/edit-product/:id",
+        element: <EditProduct />,
       },
       {
         path: "manage-orders",
@@ -213,33 +244,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path:"categories-management",
-        element: <ManageCategories/>,
-        children:[
-          {
-            index:true,
-            element: <CategoriOverview/>
-          },
-          {
-            path:'categories',
-            element: <Categories/>
-          },
-          {
-            path:'subcategories',
-            element:<Subcategories/>
-          },
-          {
-            path:'brands',
-            element:<Brands/>
-          },
-          {
-            path:'attributes',
-            element:<Attributes/>
-          },
-          
-        ]
-      }
     ],
   },
 ]);

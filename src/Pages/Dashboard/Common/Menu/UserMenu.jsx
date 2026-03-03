@@ -3,6 +3,7 @@ import {
   FaBagShopping,
   FaCartPlus,
   FaHeart,
+  FaShop,
 } from "react-icons/fa6";
 import MenuItem from "./MenuItem";
 import { RiUserSettingsFill } from "react-icons/ri";
@@ -33,6 +34,12 @@ const UserMenu = ({ closedware }) => {
           label={"Address book"}
           to={"/dashboard/address-book"}
           icon={FaAddressBook}
+          onClick={closedware}
+        />
+        <MenuItem
+          label="Seller request"
+          to="/dashboard/request-for-seller"
+          icon={FaShop}
           onClick={closedware}
         />
         <MenuItem

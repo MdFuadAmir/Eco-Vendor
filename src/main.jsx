@@ -13,12 +13,14 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-      <SkeletonTheme baseColor="var(--skeleton-base)" highlightColor="var(--skeleton-highlight)">
-      <RouterProvider router={router} />
-      <Toaster position="bottom-right" reverseOrder={false} />
-      </SkeletonTheme>
+        <SkeletonTheme
+          baseColor="var(--skeleton-base)"
+          highlightColor="var(--skeleton-highlight)"
+        >
+          <RouterProvider router={router} />
+          <Toaster position="top-right" reverseOrder={false} />
+        </SkeletonTheme>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );
-

@@ -12,9 +12,12 @@ const Menu = () => {
       <div className="flex-1 overflow-y-auto scroll-smooth no-scrollbar px-4 mt-4">
         <ul className="space-y-3 dark:text-white">
           <AdminMenu />
-          {/* <ModeratorMenu />
+          <hr />
+          <ModeratorMenu />
+          <hr />
           <SellerMenu />
-          <UserMenu /> */}
+          <hr />
+          <UserMenu />
         </ul>
       </div>
     </div>

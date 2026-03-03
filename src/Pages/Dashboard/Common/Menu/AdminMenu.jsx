@@ -43,7 +43,20 @@ const AdminMenu = ({ closedware }) => {
           icon={FaFileAlt}
           onClick={closedware}
         />
-        
+         {/* categories */}
+        <MenuItem
+          label="Categories & Brands"
+          to="/dashboard/categories-management"
+          icon={FaTags}
+          onClick={closedware}
+        />
+        {/* CONTENT */}
+        <MenuItem
+          label="Content Management"
+          to="/dashboard/content-management"
+          icon={FaFileAlt}
+          onClick={closedware}
+        />
 
         {/* PRODUCTS */}
         <MenuItem
@@ -93,27 +106,7 @@ const AdminMenu = ({ closedware }) => {
           icon={FaChartBar}
           onClick={closedware}
         />
-        {/* categories */}
-        <MenuItem
-          label="Categories & Brands"
-          to="/dashboard/categories-management"
-          icon={FaTags}
-          onClick={closedware}
-        />
-        {/* CONTENT */}
-        <MenuItem
-          label="Content Management"
-          to="/dashboard/content-management"
-          icon={FaFileAlt}
-          onClick={closedware}
-        />
-        
-        <MenuItem
-          label="Seller request"
-          to="/dashboard/request-for-seller"
-          icon={FaFileAlt}
-          onClick={closedware}
-        />
+       
 
         {/* SETTINGS */}
         <MenuItem

@@ -1,29 +1,28 @@
-import { useForm } from "react-hook-form";
-import { FaPlus } from "react-icons/fa";
 import ImageUploader from "./ImageUploader";
 
-const AddProductsForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log("Product Data:", data);
-    reset();
-  };
-
+const AddProductForm = ({
+  register,
+  handleSubmit,
+  setValue,
+  errors,
+  fields,
+  append,
+  remove,
+  categorieLoading,
+  subcategories,
+  subLoading,
+  onSubmit,
+  categorie,
+  resetImages,
+  setUploading,
+  isUploading,
+  getValues,
+}) => {
   return (
-    <div className="p-4 md:p-8 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-emerald-500 flex gap-2 items-center">
-        <FaPlus /> Add New Product
-      </h2>
+    <div className="">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" bg-white dark:bg-slate-900 p-6 rounded-xl shadow border border-gray-200 dark:border-slate-800"
+        className="bg-white dark:bg-darknav/80 p-6 rounded-xl shadow border border-gray-200 dark:border-slate-800"
       >
         {/* ---------------- BASIC INFO ---------------- */}
         <SectionTitle title="Basic Info" />
@@ -33,26 +32,25 @@ const AddProductsForm = () => {
             placeholder="Product title"
             {...register("name", { required: true })}
           />
+
           <Select
             label="Category *"
             {...register("category", { required: true })}
-            options={[
-              "Electronics",
-              "Fashion",
-              "Beauty",
-              "Home & Kitchen",
-              "Sports & Outdoors",
-              "Toys & Baby Products",
-              "Automotive & Tools",
-              "Books, Music & Stationery",
-              "Groceries & Gourmet",
-            ]}
+            options={
+              categorieLoading
+                ? ["Loading..."]
+                : categorie.map((cat) => cat.name)
+            }
           />
-          <Input
+
+          <Select
             label="Subcategory"
-            placeholder="Subcategory"
             {...register("subcategory")}
+            options={
+              subLoading ? ["Loading..."] : subcategories.map((sub) => sub.name)
+            }
           />
+
           <Input
             label="Brand"
             placeholder="Brand name"
@@ -63,6 +61,7 @@ const AddProductsForm = () => {
             placeholder="SKU"
             {...register("sku")}
           />
+
           <Select
             label="Condition"
             {...register("condition")}
@@ -92,21 +91,58 @@ const AddProductsForm = () => {
             {...register("stock", { required: true })}
           />
         </div>
-
         {/* ---------------- VARIANTS ---------------- */}
         <SectionTitle title="Variants" />
-        <div className="grid md:grid-cols-2 gap-4">
-          <Input label="Size" placeholder="S,M,L,XL" {...register("size")} />
-          <Input
-            label="Color"
-            placeholder="Red,Blue,Black"
-            {...register("color")}
-          />
-          <Input
-            label="Material / Ingredients"
-            placeholder="Cotton / Plastic"
-            {...register("material")}
-          />
+        <div className="space-y-4">
+          {fields.map((item, index) => (
+            <div
+              key={item.id}
+              className="grid grid-cols-2 md:grid-cols-6 gap-3 border p-3 rounded-lg dark:bg-indigo-900 dark:border-indigo-600"
+            >
+              <Input
+                {...register(`variants.${index}.color`)}
+                placeholder="Color (Red)"
+              />
+
+              <Input
+                {...register(`variants.${index}.size`)}
+                placeholder="Size (M)"
+              />
+
+              <Input
+                type="number"
+                {...register(`variants.${index}.price`)}
+                placeholder="Price"
+              />
+              <Input
+                type="number"
+                {...register(`variants.${index}.stock`)}
+                placeholder="Stock"
+              />
+              <Input
+                type="number"
+                {...register(`variants.${index}.waight`)}
+                placeholder="Waight"
+              />
+              <button
+                type="button"
+                onClick={() => remove(index)}
+                className="bg-red-500 hover:bg-red-600 text-white px-3 rounded"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() =>
+              append({ color: "", size: "", price: "", stock: "" })
+            }
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            + Add Variant
+          </button>
         </div>
 
         {/* ---------------- SHIPPING & WARRANTY ---------------- */}
@@ -117,11 +153,6 @@ const AddProductsForm = () => {
             type="number"
             placeholder="৳ Shipping fee"
             {...register("shippingFee")}
-          />
-          <Input
-            label="Weight / Dimensions"
-            placeholder="1kg / 10x5x5 cm"
-            {...register("weight")}
           />
           <Input
             label="Warranty"
@@ -137,7 +168,7 @@ const AddProductsForm = () => {
 
         {/* ---------------- SEO & TAGS ---------------- */}
         <SectionTitle title="SEO & Tags" />
-        <div className=" space-y-4">
+        <div className="space-y-4">
           <Input
             label="Product Tags"
             placeholder="lowprice, bestPrice,"
@@ -160,8 +191,14 @@ const AddProductsForm = () => {
 
         {/* ---------------- IMAGES ---------------- */}
         <SectionTitle title="Images" />
-        <ImageUploader setValue={setValue} />
-        {/* ---------------- featured -------------- */}
+        <ImageUploader
+          setValue={setValue}
+          getValues={getValues}
+          resetImages={resetImages}
+          setUploading={setUploading}
+        />
+
+        {/* ---------------- FEATURED ---------------- */}
         <Checkbox
           label="Featured Product"
           {...register("featured", { required: true })}
@@ -173,16 +210,18 @@ const AddProductsForm = () => {
         {/* ---------------- SUBMIT ---------------- */}
         <button
           type="submit"
-          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded font-semibold mt-4 mb-8"
+          disabled={isUploading}
+          className={`w-full py-2 rounded font-semibold mt-4 mb-8
+    ${isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 text-white"}`}
         >
-          Submit Product
+          {isUploading ? "Uploading Image..." : "Submit Product"}
         </button>
       </form>
     </div>
   );
 };
 
-export default AddProductsForm;
+export default AddProductForm;
 
 /* ---------------- HELPER COMPONENTS ---------------- */
 
@@ -193,22 +232,22 @@ const SectionTitle = ({ title }) => (
 );
 
 const Input = ({ label, type = "text", placeholder, ...rest }) => (
-  <div className="">
-    <label className="block  text-gray-700 dark:text-gray-300">{label}</label>
+  <div>
+    <label className="block text-gray-700 dark:text-gray-300">{label}</label>
     <input
       type={type}
       placeholder={placeholder}
-      className="w-full p-2 rounded border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-white"
+      className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
       {...rest}
     />
   </div>
 );
 
 const Select = ({ label, options = [], ...rest }) => (
-  <div className="">
+  <div>
     <label className="block text-gray-700 dark:text-gray-300">{label}</label>
     <select
-      className="w-full p-2 rounded border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-white"
+      className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
       {...rest}
     >
       <option value="">Select {label}</option>
@@ -222,12 +261,12 @@ const Select = ({ label, options = [], ...rest }) => (
 );
 
 const Textarea = ({ label, placeholder, ...rest }) => (
-  <div className="">
-    <label className="block  text-gray-700 dark:text-gray-300">{label}</label>
+  <div>
+    <label className="block text-gray-700 dark:text-gray-300">{label}</label>
     <textarea
       placeholder={placeholder}
       rows="4"
-      className="w-full p-2 rounded border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-800 dark:text-white"
+      className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
       {...rest}
     />
   </div>
