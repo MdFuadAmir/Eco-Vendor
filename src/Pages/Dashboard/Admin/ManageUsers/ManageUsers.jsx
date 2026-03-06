@@ -14,6 +14,8 @@ const ManageUsers = () => {
   const [search, setSearch] = useState("");
   const queryClient = useQueryClient();
   const axiosPublic = useAxios();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   // ✅ Fetch users
   const { data: users = [], isLoading } = useQuery({
@@ -75,9 +77,12 @@ const ManageUsers = () => {
   const filteredUsers = users.filter(
     (u) =>
       u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase())
+      u.email.toLowerCase().includes(search.toLowerCase()),
   );
-
+  const handleView = (user) => {
+    setSelectedUser(user);
+    setModalOpen(true);
+  };
   return (
     <div className="p-6">
       <DTitle icon={FaUsers} label={"User Management"} />
@@ -164,6 +169,7 @@ const ManageUsers = () => {
                     </td>
 
                     <td className="flex flex-wrap gap-4">
+                      <button onClick={() => handleView(user)} className="btn btn-xs">View</button>
                       <WarningButton user={user} />
 
                       <button
@@ -198,6 +204,40 @@ const ManageUsers = () => {
           </tbody>
         </table>
       </div>
+      {modalOpen && selectedUser && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
+          <div className="bg-white dark:bg-darknav rounded-xl p-6 max-w-sm w-full relative">
+            <button
+              className="absolute top-3 right-3 btn btn-sm btn-circle"
+              onClick={() => setModalOpen(false)}
+            >
+              ✕
+            </button>
+
+            <h2 className="text-xl font-bold mb-4 dark:text-gray-100">
+              {selectedUser.name} - {selectedUser.sellerInfo?.shopName}
+            </h2>
+
+            <div className="dark:text-gray-200 space-y-2">
+              <p>
+                <strong>Email:</strong> {selectedUser.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {selectedUser.sellerInfo?.phone}
+              </p>
+              <p>
+                <strong>Division:</strong> {selectedUser.sellerInfo?.division}
+              </p>
+              <p>
+                <strong>District:</strong> {selectedUser.sellerInfo?.district}
+              </p>
+              <p>
+                <strong>Address:</strong> {selectedUser.sellerInfo?.address}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -43,6 +43,9 @@ import Attributes from "../Pages/Dashboard/Admin/ManageCategories/Attributes";
 import SellerRequest from "../Pages/Dashboard/Users/SellerRequest/SellerRequest";
 import AdminSellerRequests from "../Pages/Dashboard/Admin/AdminSellerRequests/AdminSellerRequests";
 import EditProduct from "../Pages/Dashboard/Vendor/AddProduct/EditProduct";
+import TopRatedPage from "../Pages/Products/TopRatedPage";
+import ProductDetails from "../Pages/Products/ProductDetails";
+import ShopPage from "../Pages/Landing/Shop/ShopPage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +67,18 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         Component: MyWishlist,
+      },
+      {
+        path: "/top-rated",
+        Component: TopRatedPage,
+      },
+      {
+        path: "/productDetails/:id",
+        Component: ProductDetails,
+      },
+      {
+        path: "/shop/:sellerId",
+        element: <ShopPage />,
       },
       {
         path: "/cart",

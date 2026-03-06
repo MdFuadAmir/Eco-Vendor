@@ -10,6 +10,7 @@ const Categories = () => {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const axiosPublic = useAxios();
 
   const [form, setForm] = useState({
@@ -18,8 +19,7 @@ const Categories = () => {
     status: "active",
   });
 
-  // Fetch
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await axiosPublic.get("/categories");
@@ -27,10 +27,8 @@ const Categories = () => {
     },
   });
 
-  // 🔐 Safe array
   const categories = Array.isArray(data) ? data : [];
 
-  // Create
   const createMutation = useMutation({
     mutationFn: async (data) => axiosPublic.post("/categories", data),
     onSuccess: () => {
@@ -39,7 +37,6 @@ const Categories = () => {
     },
   });
 
-  // Update
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }) =>
       axiosPublic.patch(`/categories/${id}`, data),
@@ -48,6 +45,7 @@ const Categories = () => {
       closeModal();
     },
   });
+
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
       return axiosPublic.delete(`/categories/${id}`);
@@ -87,6 +85,40 @@ const Categories = () => {
   const handleDelete = (id) => {
     deleteMutation.mutate(id);
   };
+  // 🔹 Image upload handler
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+    setIsUploading(true);
+
+    try {
+      setIsUploading(true);
+      toast.loading("Uploading image...", { id: "img-upload" });
+      const res = await fetch(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+      const data = await res.json();
+      if (data.success) {
+        setForm({ ...form, image: data.data.url });
+        toast.success("Image uploaded!", { id: "img-upload" });
+      } else {
+        toast.error("Image upload failed", { id: "img-upload" });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Image upload failed", { id: "img-upload" });
+    } finally {
+      setIsUploading(false);
+      refetch();
+    }
+  };
 
   return (
     <div>
@@ -105,6 +137,7 @@ const Categories = () => {
         <table className="table w-full">
           <thead className="bg-gray-100 dark:bg-darknav dark:text-white">
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Slug</th>
               <th>Status</th>
@@ -117,6 +150,9 @@ const Categories = () => {
             {isLoading &&
               Array.from({ length: 4 }).map((_, i) => (
                 <tr key={i}>
+                  <td>
+                    <Skeleton width={80} />
+                  </td>
                   <td>
                     <Skeleton />
                   </td>
@@ -137,6 +173,13 @@ const Categories = () => {
               categories.length > 0 &&
               categories.map((cat) => (
                 <tr key={cat._id}>
+                  <td>
+                    <img
+                      src={cat.image}
+                      alt="categorie/image"
+                      className="w-12 h-12"
+                    />
+                  </td>
                   <td>{cat.name}</td>
                   <td>{cat.slug}</td>
                   <td>
@@ -229,8 +272,12 @@ const Categories = () => {
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
-
-              
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="border w-full px-4 py-2 rounded-lg dark:text-white"
+              />
 
               {/* Buttons */}
               <div className="flex justify-end gap-2 mt-4">
@@ -241,8 +288,17 @@ const Categories = () => {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary">
-                  {editing ? "Update" : "Create"}
+
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={isUploading}
+                >
+                  {isUploading
+                    ? "Uploading Image..."
+                    : editing
+                      ? "Update"
+                      : "Create"}
                 </button>
               </div>
             </form>

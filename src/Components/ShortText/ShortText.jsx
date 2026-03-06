@@ -1,9 +1,9 @@
 const ShortText = ({ text }) => {
   return (
-    <p className="dark:text-gray-400 text-sm leading-relaxed line-clamp-2">
+    <h1 className="text-md font-medium dark:text-white leading-relaxed line-clamp-2">
       {text}
-      <span className="text-blue-600 cursor-pointer ml-1">... Show more</span>
-    </p>
+      <span className="text-blue-600 text-xs cursor-pointer ml-1">... Show more</span>
+    </h1>
   );
 };
 

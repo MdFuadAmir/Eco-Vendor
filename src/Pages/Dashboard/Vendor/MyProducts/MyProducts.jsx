@@ -128,8 +128,8 @@ const MyProducts = () => {
               <th>Image</th>
               <th>Product</th>
               <th>Price</th>
-              <th>Stock</th>
               <th>Discount</th>
+              <th>Stock</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -193,6 +193,7 @@ const MyProducts = () => {
                   </td>
 
                   <td>৳ {item.price}</td>
+                  <td>{item.discountPrice || 0}</td>
                   <td>
                     {item.stock > 0 ? (
                       item.stock
@@ -200,7 +201,7 @@ const MyProducts = () => {
                       <p className="badge badge-error">Out of Stock</p>
                     )}
                   </td>
-                  <td>{item.discountPrice || 0}</td>
+                  
                   <td>
                     <span
                       className={`badge ${

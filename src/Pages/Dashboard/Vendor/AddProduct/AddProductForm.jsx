@@ -1,3 +1,4 @@
+import { MdDelete } from "react-icons/md";
 import ImageUploader from "./ImageUploader";
 
 const AddProductForm = ({
@@ -99,38 +100,53 @@ const AddProductForm = ({
               key={item.id}
               className="grid grid-cols-2 md:grid-cols-6 gap-3 border p-3 rounded-lg dark:bg-indigo-900 dark:border-indigo-600"
             >
-              <Input
-                {...register(`variants.${index}.color`)}
-                placeholder="Color (Red)"
-              />
-
-              <Input
-                {...register(`variants.${index}.size`)}
-                placeholder="Size (M)"
-              />
-
-              <Input
-                type="number"
-                {...register(`variants.${index}.price`)}
-                placeholder="Price"
-              />
-              <Input
-                type="number"
-                {...register(`variants.${index}.stock`)}
-                placeholder="Stock"
-              />
-              <Input
-                type="number"
-                {...register(`variants.${index}.waight`)}
-                placeholder="Waight"
-              />
-              <button
-                type="button"
-                onClick={() => remove(index)}
-                className="bg-red-500 hover:bg-red-600 text-white px-3 rounded"
-              >
-                ✕
-              </button>
+              <label>
+                <p className="dark:text-gray-200">color</p>
+                <Input
+                  {...register(`variants.${index}.color`)}
+                  placeholder="Color (Red)"
+                />
+              </label>
+              <label>
+                <p className="dark:text-gray-200">size</p>
+                <Input
+                  {...register(`variants.${index}.size`)}
+                  placeholder="Size (M)"
+                />
+              </label>
+              <label>
+                <p className="dark:text-gray-200">price</p>
+                <Input
+                  type="number"
+                  {...register(`variants.${index}.price`)}
+                  placeholder="Price"
+                />
+              </label>
+              <label>
+                <p className="dark:text-gray-200">stock</p>
+                <Input
+                  type="number"
+                  {...register(`variants.${index}.stock`)}
+                  placeholder="Stock"
+                />
+              </label>
+              <label>
+                <p className="dark:text-gray-200">waight</p>
+                <Input
+                  type="number"
+                  {...register(`variants.${index}.waight`)}
+                  placeholder="Waight"
+                />
+              </label>
+              <div className="flex justify-center items-center">
+                <button
+                  type="button"
+                  onClick={() => remove(index)}
+                  className="px-3 rounded md:w-1/2 top-4 text-red-500"
+                >
+                  <MdDelete size={30} />
+                </button>
+              </div>
             </div>
           ))}
 
@@ -182,11 +198,11 @@ const AddProductForm = ({
         </div>
 
         {/* ---------------- OPTIONAL ---------------- */}
-        <SectionTitle title="Admin / Seller Notes" />
+        <SectionTitle title="Product Details" />
         <Textarea
-          label="Seller Notes"
-          placeholder="Internal notes"
-          {...register("notes")}
+          label="Profuct details"
+          placeholder="product details"
+          {...register("details")}
         />
 
         {/* ---------------- IMAGES ---------------- */}
@@ -266,7 +282,7 @@ const Textarea = ({ label, placeholder, ...rest }) => (
     <textarea
       placeholder={placeholder}
       rows="4"
-      className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
+      className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded focus:outline-none"
       {...rest}
     />
   </div>

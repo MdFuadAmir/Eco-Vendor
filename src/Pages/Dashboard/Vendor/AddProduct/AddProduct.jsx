@@ -79,6 +79,7 @@ const AddProduct = () => {
         waight: v.waight ? Number(v.waight) : 0,
       })),
       sellerId: mongoUser._id,
+      rating: data.rating || 0,
       createdAt: new Date(),
       status: "pending",
     };
