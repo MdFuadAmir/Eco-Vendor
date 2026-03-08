@@ -46,6 +46,7 @@ import EditProduct from "../Pages/Dashboard/Vendor/AddProduct/EditProduct";
 import TopRatedPage from "../Pages/Products/TopRatedPage";
 import ProductDetails from "../Pages/Products/ProductDetails";
 import ShopPage from "../Pages/Landing/Shop/ShopPage";
+import ManageAds from "../Pages/Dashboard/Vendor/ManageAds/ManageAds";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
+      // admin only
       {
         path: "manage-users",
         element: <ManageUsers />,
@@ -122,6 +124,29 @@ const router = createBrowserRouter([
       {
         path: "seller-requests",
         element: <AdminSellerRequests />,
+      },
+      // admon moderator
+      {
+        path: "content-management",
+        element: <ContentManagement />,
+        children: [
+          {
+            index: true,
+            element: <ContentOverview />,
+          },
+          {
+            path: "homepage-slider",
+            element: <HomepageSlider />,
+          },
+          {
+            path: "offer-slider",
+            element: <OfferSlider />,
+          },
+          {
+            path: "seo-manager",
+            element: <SeoMetaManager />,
+          },
+        ],
       },
       {
         path: "categories-management",
@@ -149,10 +174,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "request-for-seller",
-        element: <SellerRequest />,
-      },
+      
+    
       {
         path: "manage-products",
         element: <ManageProducts />,
@@ -206,6 +229,10 @@ const router = createBrowserRouter([
         element: <EditProduct />,
       },
       {
+        path: "manage-shopAds",
+        element: <ManageAds />,
+      },
+      {
         path: "manage-orders",
         element: <SellerOrderManagement />,
       },
@@ -229,35 +256,20 @@ const router = createBrowserRouter([
         path: "messages",
         element: <SellerMessages />,
       },
+      
+      {
+        path: "messages",
+        element: <SellerMessages />,
+      },
+      
+      // user/buyer
       {
         path: "address-book",
         element: <AddressBook />,
       },
       {
-        path: "messages",
-        element: <SellerMessages />,
-      },
-      {
-        path: "content-management",
-        element: <ContentManagement />,
-        children: [
-          {
-            index: true,
-            element: <ContentOverview />,
-          },
-          {
-            path: "homepage-slider",
-            element: <HomepageSlider />,
-          },
-          {
-            path: "offer-slider",
-            element: <OfferSlider />,
-          },
-          {
-            path: "seo-manager",
-            element: <SeoMetaManager />,
-          },
-        ],
+        path: "request-for-seller",
+        element: <SellerRequest />,
       },
     ],
   },

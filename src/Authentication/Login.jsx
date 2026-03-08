@@ -20,6 +20,7 @@ const Login = () => {
     try {
       await login(data.email, data.password);
       toast.success("Login Successfully");
+      console.log("current user",data);
       navigate(from, { replace: true });
       axiosPublic
         .patch("/users/last-login", {

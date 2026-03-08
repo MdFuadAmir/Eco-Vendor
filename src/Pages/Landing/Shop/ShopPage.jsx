@@ -4,13 +4,16 @@ import useAxios from "../../../Hooks/useAxios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { IoMdChatbubbles } from "react-icons/io";
-import { FaShop } from "react-icons/fa6";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ProductList from "../../Products/ProductList/ProductList";
+import useMongoUser from "../../../Hooks/useMongoUser";
+import FollowButton from "./FollowButton";
+import ShopAds from "./ShopAds";
 const ShopPage = () => {
   const { sellerId } = useParams();
   const axiosPublic = useAxios();
+  const { mongoUser } = useMongoUser();
 
   // seller info
   const { data: shop, isLoading } = useQuery({
@@ -19,6 +22,21 @@ const ShopPage = () => {
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/shop/${sellerId}`);
       return data;
+    },
+  });
+  const { data: totalProductsData, isLoading: totalLoading } = useQuery({
+    queryKey: ["totalProducts", sellerId],
+    enabled: !!sellerId,
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/shop-products/count/${sellerId}`);
+      return res.data;
+    },
+  });
+  const { data: followers, refetch } = useQuery({
+    queryKey: ["followers", sellerId],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/followers-count/${sellerId}`);
+      return res.data;
     },
   });
 
@@ -54,7 +72,7 @@ const ShopPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="container py-6">
       {/* SHOP HEADER */}
       <div className="bg-linear-to-r from-orange-400 via-orange-500 to-red-500 p-6 rounded-xl">
         <div className="bg-slate-100 dark:bg-gray-950/80 w-fit rounded-lg p-4 flex flex-col gap-4">
@@ -68,17 +86,21 @@ const ShopPage = () => {
               <h1 className="text-xl font-bold dark:text-white">
                 {shop?.sellerInfo?.shopName}
               </h1>
-              <p className="dark:text-gray-200 text-sm">8000 Followers</p>
+
+              <p className="dark:text-gray-300 text-sm">
+                {followers?.count || 0} Followers
+              </p>
             </div>
           </div>
           <div className="dark:text-white justify-end flex gap-6">
             <p className="flex items-center gap-1 btn btn-info btn-sm">
               <IoMdChatbubbles /> chat now
             </p>
-            <p className="flex items-center gap-1 btn btn-success btn-sm">
-              <FaShop />
-              Follow
-            </p>
+            <FollowButton
+              sellerId={sellerId}
+              currentUserId={mongoUser?._id}
+              refetch={refetch}
+            />
           </div>
         </div>
       </div>
@@ -108,57 +130,19 @@ const ShopPage = () => {
               Profile
             </Tab>
           </TabList>
-          {/* tab contents */}
           {/* shop */}
           <TabPanel>
             <div className="space-y-10 mt-6">
               {/* FEATURED PRODUCTS */}
               <div>
-                <div>
-                  <h2 className="text-xl font-semibold mb-6 dark:text-white">
-                    Shop Promotions
-                  </h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {/* PROMO 1 */}
-                    <div className="bg-linear-to-r from-red-500 to-orange-500 text-white p-6 rounded-xl shadow-md">
-                      <h3 className="text-lg font-bold mb-2">Big Sale</h3>
-                      <p className="text-sm opacity-90">
-                        Up to 50% discount on selected products.
-                      </p>
-                    </div>
-
-                    {/* PROMO 2 */}
-                    <div className="bg-linear-to-r from-blue-500 to-indigo-500 text-white p-6 rounded-xl shadow-md">
-                      <h3 className="text-lg font-bold mb-2">New Arrival</h3>
-                      <p className="text-sm opacity-90">
-                        Check out our newest products added this week.
-                      </p>
-                    </div>
-
-                    {/* PROMO 3 */}
-                    <div className="bg-linear-to-r from-green-500 to-emerald-500 text-white p-6 rounded-xl shadow-md">
-                      <h3 className="text-lg font-bold mb-2">Limited Offer</h3>
-                      <p className="text-sm opacity-90">
-                        Special deals available for a limited time.
-                      </p>
-                    </div>
-
-                    {/* PROMO 4 */}
-                    <div className="bg-linear-to-r from-purple-500 to-pink-500 text-white p-6 rounded-xl shadow-md">
-                      <h3 className="text-lg font-bold mb-2">Best Seller</h3>
-                      <p className="text-sm opacity-90">
-                        Discover our most popular products.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <ShopAds sellerId={sellerId} />
                 <h2 className="text-xl font-semibold my-6 dark:text-white">
                   Featured Products
                 </h2>
                 <ProductList
                   endpoint={`/shop-products/featured/${sellerId}`}
                   queryKey={["shopProductsFeatured", sellerId]}
-                  limit={15}
+                  limit={20}
                   paginated={false}
                 />
               </div>
@@ -181,57 +165,77 @@ const ShopPage = () => {
           {/* profile */}
           <TabPanel>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-              {/* SELLER INFO */}
-              <div className="bg-white dark:bg-gray-900 rounded-xl p-6">
-                <h2 className="text-lg font-semibold mb-4 dark:text-white">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md dark:shadow-gray-800 p-6 border border-gray-100 dark:border-gray-700 transition hover:scale-[1.02] duration-300">
+                <h2 className="text-xl font-bold mb-5 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
                   Seller Information
                 </h2>
 
-                <div className="space-y-2 text-gray-600 dark:text-gray-300">
-                  <p>
-                    <span className="font-semibold">Owner Name:</span>{" "}
-                    {shop?.name}
-                  </p>
+                <ul className="space-y-4 text-gray-700 dark:text-gray-300">
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Owner Name:</span>
+                    <span>{shop?.name}</span>
+                  </li>
 
-                  <p>
-                    <span className="font-semibold">Email:</span> {shop?.email}
-                  </p>
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Email:</span>
+                    <span>{shop?.email}</span>
+                  </li>
 
-                  <p>
-                    <span className="font-semibold">Phone:</span>{" "}
-                    {shop?.sellerInfo?.phone}
-                  </p>
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Phone:</span>
+                    <span>{shop?.sellerInfo?.phone}</span>
+                  </li>
 
-                  <p>
-                    <span className="font-semibold">Location:</span>{" "}
-                    {shop?.sellerInfo?.district}, {shop?.sellerInfo?.division}
-                  </p>
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Location:</span>
+                    <span>
+                      {shop?.sellerInfo?.district}, {shop?.sellerInfo?.division}
+                    </span>
+                  </li>
 
-                  <p>
-                    <span className="font-semibold">Member Since:</span>{" "}
-                    {new Date(shop?.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Member Since:</span>
+                    <span>
+                      {new Date(shop?.createdAt).toLocaleDateString()}
+                    </span>
+                  </li>
+                </ul>
               </div>
-              {/* SHOP INFO */}
-              <div className="bg-white dark:bg-gray-900 rounded-xl p-6">
-                <h2 className="text-lg font-semibold mb-4 dark:text-white">
+
+              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-md dark:shadow-gray-800 p-6 border border-gray-100 dark:border-gray-700 transition hover:scale-[1.02] duration-300">
+                <h2 className="text-xl font-bold mb-5 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
                   Shop Information
                 </h2>
 
-                <div className="space-y-3 text-gray-600 dark:text-gray-300">
-                  <p>
-                    <span className="font-semibold">Shop Name:</span>{" "}
-                    {shop?.sellerInfo?.shopName}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Description:</span>{" "}
-                    {shop?.sellerInfo?.shopDescription}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Followers:</span> 8000
-                  </p>
-                </div>
+                <ul className="space-y-4 text-gray-700 dark:text-gray-300">
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Shop Name:</span>
+                    <span>{shop?.sellerInfo?.shopName}</span>
+                  </li>
+
+                  <li className="flex justify-between gap-1">
+                    <span className="font-semibold">Description:</span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      {shop?.sellerInfo?.shopDescription}
+                    </span>
+                  </li>
+
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Total Products:</span>
+                    <span>
+                      {totalLoading ? (
+                        <span className="animate-pulse">...</span>
+                      ) : (
+                        totalProductsData?.totalProducts || 0
+                      )}
+                    </span>
+                  </li>
+
+                  <li className="flex justify-between">
+                    <span className="font-semibold">Followers:</span>
+                    <span>{followers?.count || 0}</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </TabPanel>

@@ -75,8 +75,8 @@ const SellerMenu = ({ closedware }) => {
 
         {/* MARKETING */}
         <MenuItem
-          label="Promotions"
-          to="/dashboard/promotions"
+          label="Shop Ads"
+          to="/dashboard/manage-shopAds"
           icon={FaBullhorn}
           onClick={closedware}
         />

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
-import Product from "../Product";
 import Skeleton from "react-loading-skeleton";
 import Pagination from "../../../Components/Pagination/Pagination";
+import Product from "../Product";
 
-const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false }) => {
+const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false}) => {
   const axiosPublic = useAxios();
   const [page, setPage] = useState(1);
 
@@ -34,6 +34,7 @@ const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false }) => {
       </div>
     );
   }
+  
 
   return (
     <div className="space-y-6">

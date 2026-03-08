@@ -1,25 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../Hooks/useAxios";
-import Product from "./Product";
+import Search from "../../Components/Search/Search";
+import ProductList from "../Products/ProductList/ProductList";
 
 const TopRatedPage = () => {
-  const axiosPublic = useAxios();
-
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["topRatedAll"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/products/top-rated/all");
-      return res.data;
-    },
-  });
-
-  if (isLoading) {
-    return <p className="text-center py-10">Loading...</p>;
-  }
-
   return (
-    <div className="container">
-        {/* 🔥 Banner Section */}
+    <div className="container pb-16">
+      {/* 🔥 Banner Section */}
       <div className="mb-8 rounded-xl overflow-hidden bg-linear-to-r from-amber-300 via-orange-500 to-red-600">
         <div className="px-6 py-10 md:py-14 text-center text-white">
           <h1 className="text-2xl md:text-4xl font-bold">
@@ -30,12 +15,19 @@ const TopRatedPage = () => {
           </p>
         </div>
       </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {products.map((prod) => (
-          <Product key={prod._id} prod={prod} />
-        ))}
+      <div>
+        <p className="text-white">filter by price</p>
+        <p className="text-white">filter by rating</p>
       </div>
+      <ProductList
+        endpoint="/products/top-rated/all"
+        queryKey={["topRatedAll"]}
+        limit={20}
+        paginated={true}
+        showSearch={true}
+        showPriceFilter={true}
+        showRatingFilter={true}
+      />
     </div>
   );
 };

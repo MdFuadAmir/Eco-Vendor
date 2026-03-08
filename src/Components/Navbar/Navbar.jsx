@@ -12,7 +12,7 @@ const navLinks = (
     </li>
     <li>
       <NavLink to="/" className="hover:text-emerald-500 hover:border-b-2">
-        Shop
+        Store
       </NavLink>
     </li>
     <li>
