@@ -1,3 +1,5 @@
+import FlashSale from "../../Products/FlashSale";
+import JustForYou from "../../Products/JustForYou";
 import TopSell from "../../Products/TopSell";
 import AdsBanner from "./AdsBanner/AdsBanner";
 import Banner from "./Banner/Banner";
@@ -9,11 +11,12 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <TopSell />
       <Categories />
-      <FreeShiping />
-      <AdsBanner />
+      <FlashSale/>
       <TopSell />
+      <AdsBanner />
+      <FreeShiping />
+      <JustForYou />
       <Features />
     </div>
   );

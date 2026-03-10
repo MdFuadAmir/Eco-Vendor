@@ -47,6 +47,8 @@ import TopRatedPage from "../Pages/Products/TopRatedPage";
 import ProductDetails from "../Pages/Products/ProductDetails";
 import ShopPage from "../Pages/Landing/Shop/ShopPage";
 import ManageAds from "../Pages/Dashboard/Vendor/ManageAds/ManageAds";
+import Products from "../Pages/Products/Products";
+import FlashSalePage from "../Pages/Products/FlashSalePage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,18 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+      },
+      {
+        path: "/products",
+        Component: Products,
+      },
+      {
+        path: "/products/:slug",
+        Component: Products,
+      },
+      {
+        path: "/flash-sale",
+        Component: FlashSalePage,
       },
       {
         path: "/about",

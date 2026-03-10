@@ -25,6 +25,9 @@ body {
   --skeleton-base: #1f2937;
   --skeleton-highlight: #374151;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .container {
   width: 90%;

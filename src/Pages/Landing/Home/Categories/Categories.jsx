@@ -42,7 +42,7 @@ const Categories = () => {
         {categories.map((cat) => (
           <Link
             key={cat._id}
-            to={`/${cat.slug}`}
+            to={`/products/${cat.slug}`}
             className="rounded bg-lightnav dark:bg-darknav/80 dark-card p-2 text-center shadow hover:shadow-lg transition text-lighttitle dark:text-darktitle"
           >
             <img
@@ -50,12 +50,13 @@ const Categories = () => {
               alt={cat.name}
               className="h-14 w-full object-contain mx-auto"
             />
-            <p className="mt-2 text-sm font-medium dark:text-white">
+            <p className="mt-2 text-xs font-medium dark:text-white">
               {cat.name}
             </p>
           </Link>
         ))}
       </div>
+      
     </div>
   );
 };

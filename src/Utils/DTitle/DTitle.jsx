@@ -2,7 +2,7 @@
 const DTitle = ({icon : Icon,label}) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 flex gap-2 items-center text-gray-600 dark:text-white">
+      <h2 className="text-2xl font-bold flex gap-2 items-center text-gray-600 dark:text-white">
         <Icon/> {label}
       </h2>
     </div>

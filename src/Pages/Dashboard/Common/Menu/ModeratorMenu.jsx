@@ -17,8 +17,8 @@ const ModeratorMenu = ({ closedware }) => {
 
         {/* PRODUCTS */}
         <MenuItem
-          label="Pending Products"
-          to="/dashboard/moderator-products"
+          label="Manage Products"
+          to="/dashboard/manage-products"
           icon={FaBoxOpen}
           onClick={closedware}
         />

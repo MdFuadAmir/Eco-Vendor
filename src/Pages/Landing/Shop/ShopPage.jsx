@@ -74,11 +74,14 @@ const ShopPage = () => {
   return (
     <div className="container py-6">
       {/* SHOP HEADER */}
-      <div className="bg-linear-to-r from-orange-400 via-orange-500 to-red-500 p-6 rounded-xl">
+      <div
+        className="p-4 md:p-6 rounded-xl bg-cover bg-center  h-fit"
+        style={{ backgroundImage: `url(${shop?.sellerInfo?.cover})` }}
+      >
         <div className="bg-slate-100 dark:bg-gray-950/80 w-fit rounded-lg p-4 flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <img
-              src="https://i.ibb.co/GvfGBgq5/img1.jpg"
+              src={shop?.sellerInfo?.logo}
               alt="/shopLogo"
               className="w-16 h-16 rounded-md"
             />
@@ -212,14 +215,6 @@ const ShopPage = () => {
                     <span className="font-semibold">Shop Name:</span>
                     <span>{shop?.sellerInfo?.shopName}</span>
                   </li>
-
-                  <li className="flex justify-between gap-1">
-                    <span className="font-semibold">Description:</span>
-                    <span className="text-gray-500 dark:text-gray-400">
-                      {shop?.sellerInfo?.shopDescription}
-                    </span>
-                  </li>
-
                   <li className="flex justify-between">
                     <span className="font-semibold">Total Products:</span>
                     <span>
@@ -234,6 +229,12 @@ const ShopPage = () => {
                   <li className="flex justify-between">
                     <span className="font-semibold">Followers:</span>
                     <span>{followers?.count || 0}</span>
+                  </li>
+                  <li className="flex justify-between gap-1">
+                    <span className="font-semibold">Description:</span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      {shop?.sellerInfo?.shopDescription}
+                    </span>
                   </li>
                 </ul>
               </div>

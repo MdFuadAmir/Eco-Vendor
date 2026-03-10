@@ -1,3 +1,5 @@
+import { MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
+
 const Pagination = ({ page, setPage, totalPages }) => {
   const maxPagesToShow = 6;
 
@@ -14,14 +16,14 @@ const Pagination = ({ page, setPage, totalPages }) => {
   }
 
   return (
-    <div className="flex justify-center items-center gap-2 flex-wrap text-white">
+    <div className="flex justify-center items-center gap-2 flex-wrap dark:text-white">
       {/* Prev */}
       <button
         disabled={page === 1}
         onClick={() => setPage(page - 1)}
-        className="px-3 py-1 border rounded disabled:opacity-40 text-white border-gray-500/50"
+        className="px-3 py-1 border rounded disabled:opacity-40 dark:text-white border-gray-500/50"
       >
-        Prev
+        <MdKeyboardDoubleArrowLeft/>
       </button>
 
       {/* First + ... */}
@@ -42,7 +44,7 @@ const Pagination = ({ page, setPage, totalPages }) => {
         <button
           key={p}
           onClick={() => setPage(p)}
-          className={`px-3 py-1 rounded-full text-white border border-gray-500/40 ${
+          className={`px-3 py-1 rounded-full dark:text-white border border-gray-500/40 ${
             p === page ? "bg-orange-500" : ""
           }`}
         >
@@ -67,9 +69,9 @@ const Pagination = ({ page, setPage, totalPages }) => {
       <button
         disabled={page === totalPages}
         onClick={() => setPage(page + 1)}
-        className="px-3 py-1 border border-gray-500/50 rounded disabled:opacity-40 text-white"
+        className="px-3 py-1 border border-gray-500/50 rounded disabled:opacity-40 dark:text-white"
       >
-        Next
+        <MdKeyboardDoubleArrowRight/>
       </button>
     </div>
   );

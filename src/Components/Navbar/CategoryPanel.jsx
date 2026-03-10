@@ -55,7 +55,7 @@ const CategoryPanel = ({ open, toggleDrawer }) => {
             : categories.map((cat) => (
                 <li key={cat._id}>
                   <Link
-                    to={`/${cat.slug}`}
+                    to={`/products/${cat.slug}`}
                     onClick={toggleDrawer}
                     className="block px-4 py-2 rounded hover:bg-emerald-100  dark:hover:bg-gray-700 cursor-pointer dark:text-white"
                   >

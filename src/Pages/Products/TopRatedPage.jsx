@@ -1,4 +1,5 @@
-import Search from "../../Components/Search/Search";
+import PriceFilter from "../../Components/Filters/PriceFilter";
+import RatingFilter from "../../Components/Filters/RatingFilter";
 import ProductList from "../Products/ProductList/ProductList";
 
 const TopRatedPage = () => {
@@ -16,8 +17,9 @@ const TopRatedPage = () => {
         </div>
       </div>
       <div>
-        <p className="text-white">filter by price</p>
-        <p className="text-white">filter by rating</p>
+        <PriceFilter />
+        <RatingFilter />
+        {/* <FilterBar/> */}
       </div>
       <ProductList
         endpoint="/products/top-rated/all"

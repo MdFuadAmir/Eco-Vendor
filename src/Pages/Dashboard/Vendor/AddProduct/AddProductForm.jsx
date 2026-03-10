@@ -18,6 +18,7 @@ const AddProductForm = ({
   setUploading,
   isUploading,
   getValues,
+  flashSale,
 }) => {
   return (
     <div className="">
@@ -91,6 +92,43 @@ const AddProductForm = ({
             placeholder="Available stock"
             {...register("stock", { required: true })}
           />
+        </div>
+        {/* ---------------- Flash sale ---------------- */}
+        <div>
+          <SectionTitle title={"Flash sale"} />
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="flashSale"
+                {...register("flashSale")}
+                className="w-4 h-4"
+              />
+              <label htmlFor="flashSale" className="text-sm font-medium dark:text-white">
+                Flash Sale
+              </label>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                label="Flash Sale Price"
+                type="number"
+                placeholder="Flash sale price"
+                {...register("flashSalePrice", {
+                  required: flashSale ? "Flash sale price is required" : false,
+                })}
+              />
+
+              <Input
+                label="Flash Sale End"
+                type="date"
+                {...register("flashSaleEnd", {
+                  required: flashSale
+                    ? "Flash sale end date is required"
+                    : false,
+                })}
+              />
+            </div>
+          </div>
         </div>
         {/* ---------------- VARIANTS ---------------- */}
         <SectionTitle title="Variants" />

@@ -39,11 +39,22 @@ const ProductDetails = () => {
     (v) => v.color === selectedColor && v.size === selectedSize,
   );
   // 🔥 price logic
+  // const basePrice = selectedVariant?.price || product.price;
+  // const baseDiscount = selectedVariant?.discountPrice || product.discountPrice;
+  // const showDiscount = baseDiscount && baseDiscount < basePrice;
+  // const discountPercent = showDiscount
+  //   ? Math.round(((basePrice - baseDiscount) / basePrice) * 100)
+  //   : 0;
+  // 🔥 price logic priority
   const basePrice = selectedVariant?.price || product.price;
-  const baseDiscount = selectedVariant?.discountPrice || product.discountPrice;
-  const showDiscount = baseDiscount && baseDiscount < basePrice;
-  const discountPercent = showDiscount
-    ? Math.round(((basePrice - baseDiscount) / basePrice) * 100)
+  const discountPrice = selectedVariant?.discountPrice || product.discountPrice;
+  const flashSalePrice = product.flashSalePrice;
+  // conditions
+  const hasFlashSale = flashSalePrice;
+  const hasDiscount = discountPrice && discountPrice < basePrice;
+
+  const discountPercent = hasDiscount
+    ? Math.round(((basePrice - discountPrice) / basePrice) * 100)
     : 0;
   const handleAddToCart = () => {
     let cartItem;
@@ -85,7 +96,7 @@ const ProductDetails = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 bg-slate-100 dark:bg-gray-800 py-6">
         {/* IMAGE SECTION */}
         <div className="flex md:flex-row-reverse flex-col gap-4 p-4">
-          <div className="w-full rounded-xl overflow-hidden">
+          <div className="w-full h-96 rounded-xl overflow-hidden">
             <img
               src={images[mainImage]}
               alt={product?.name}
@@ -122,19 +133,28 @@ const ProductDetails = () => {
           {/* PRICE */}
           <div className="mt-4">
             <div className="mt-4">
-              {showDiscount ? (
+              {hasFlashSale ? (
+                // 🔥 FLASH SALE PRICE
+                <span className="text-red-600 text-xl font-bold">
+                  ${flashSalePrice}
+                </span>
+              ) : hasDiscount ? (
+                // 🔥 DISCOUNT PRICE
                 <div className="flex items-center gap-2">
                   <span className="text-emerald-600 text-xl font-semibold">
-                    ${baseDiscount}
+                    ${discountPrice}
                   </span>
+
                   <span className="text-gray-400 line-through text-sm">
                     ${basePrice}
                   </span>
+
                   <span className="text-red-600 text-xs font-semibold px-2 py-0.5 rounded">
                     {discountPercent}% OFF
                   </span>
                 </div>
               ) : (
+                // 🔥 NORMAL PRICE
                 <span className="text-emerald-600 text-xl font-semibold">
                   ${basePrice}
                 </span>
@@ -157,6 +177,11 @@ const ProductDetails = () => {
             {product.returnPolicy && (
               <p>
                 <b>Return:</b> {product.returnPolicy}
+              </p>
+            )}
+            {product.flashSaleEnd && (
+              <p>
+                <b>flashSaleEnd:</b> {product.flashSaleEnd}
               </p>
             )}
           </div>

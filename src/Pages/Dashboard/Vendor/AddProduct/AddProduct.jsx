@@ -35,6 +35,10 @@ const AddProduct = () => {
     control,
     name: "category",
   });
+  const flashSale = useWatch({
+    control,
+    name:"flashSale"
+  });
 
   // ================== GET CATEGORIES ==================
   const { data: categorie = [], isLoading: categorieLoading } = useQuery({
@@ -101,9 +105,9 @@ const AddProduct = () => {
   return (
     <div className="p-4 md:p-8 min-h-screen">
       <DTitle label={"Add New Product"} icon={FaPlus} />
-          <p className="-mt-4 mb-4 dark:text-gray-300">
-            Fill in the product details below to list your item in the marketplace.
-          </p>
+      <p className=" mb-4 dark:text-gray-300">
+        Fill in the product details below to list your item in the marketplace.
+      </p>
       <AddProductForm
         register={register}
         handleSubmit={handleSubmit}
@@ -121,6 +125,7 @@ const AddProduct = () => {
         setUploading={setUploading}
         isUploading={isUploading}
         getValues={getValues}
+        flashSale={flashSale}
       />
     </div>
   );

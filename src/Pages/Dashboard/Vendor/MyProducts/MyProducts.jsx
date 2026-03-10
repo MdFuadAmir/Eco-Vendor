@@ -100,6 +100,11 @@ const MyProducts = () => {
 
     return matchText || matchVariants;
   });
+  const statusClass = {
+    active: "badge-success",
+    pending: "badge-warning",
+    rejected: "badge-error",
+  };
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-emerald-400">
@@ -201,15 +206,9 @@ const MyProducts = () => {
                       <p className="badge badge-error">Out of Stock</p>
                     )}
                   </td>
-                  
+
                   <td>
-                    <span
-                      className={`badge ${
-                        item.status === "active"
-                          ? "badge-success"
-                          : "badge-warning"
-                      }`}
-                    >
+                    <span className={`badge ${statusClass[item.status]}`}>
                       {item.status}
                     </span>
                   </td>

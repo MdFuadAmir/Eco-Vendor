@@ -9,7 +9,6 @@ import {
   FaStore,
   FaBullhorn,
   FaStar,
-  FaCog,
 } from "react-icons/fa";
 
 import MenuItem from "./MenuItem";
@@ -18,7 +17,6 @@ const SellerMenu = ({ closedware }) => {
   return (
     <div>
       <ul className="space-y-1">
-
         {/* PRODUCTS */}
         <MenuItem
           label="Add Product"
@@ -26,14 +24,27 @@ const SellerMenu = ({ closedware }) => {
           icon={FaPlusCircle}
           onClick={closedware}
         />
-
+        {/* my products */}
         <MenuItem
           label="My Products"
           to="/dashboard/my-products"
           icon={FaBoxOpen}
           onClick={closedware}
         />
-
+        {/* MARKETING */}
+        <MenuItem
+          label="Shop Ads"
+          to="/dashboard/manage-shopAds"
+          icon={FaBullhorn}
+          onClick={closedware}
+        />
+        {/* SHOP */}
+        <MenuItem
+          label="Shop Management"
+          to="/dashboard/shop-management"
+          icon={FaStore}
+          onClick={closedware}
+        />
         {/* ORDERS */}
         <MenuItem
           label="Orders"
@@ -73,37 +84,12 @@ const SellerMenu = ({ closedware }) => {
           onClick={closedware}
         />
 
-        {/* MARKETING */}
-        <MenuItem
-          label="Shop Ads"
-          to="/dashboard/manage-shopAds"
-          icon={FaBullhorn}
-          onClick={closedware}
-        />
-
         <MenuItem
           label="Reviews & Ratings"
           to="/dashboard/reviews"
           icon={FaStar}
           onClick={closedware}
         />
-
-        {/* SHOP */}
-        <MenuItem
-          label="Shop Management"
-          to="/dashboard/shop-management"
-          icon={FaStore}
-          onClick={closedware}
-        />
-
-        {/* SETTINGS */}
-        <MenuItem
-          label="Account Settings"
-          to="/dashboard/settings"
-          icon={FaCog}
-          onClick={closedware}
-        />
-
       </ul>
     </div>
   );

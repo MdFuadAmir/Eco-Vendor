@@ -116,15 +116,26 @@ const ManageAds = () => {
   };
 
   const imagePreview = useWatch({ control, name: "image" });
+  const activeCount = ads.filter((a) => a.status === "active").length;
 
   return (
     <div className="p-6">
-      <div className="flex flex-col md:flex-row md:justify-between mb-6">
-        <DTitle label="Shop Ads Manager" icon={FaBullhorn} />
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+        <div className="mb-4">
+          <DTitle label="Shop Ads Manager" icon={FaBullhorn} />
+          <p className="text-xs text-gray-700 dark:text-gray-400">you can show only 5 active ads</p>
+        </div>
         <button
           onClick={() => {
             reset();
             setSelectedAd(null);
+
+            if (activeCount >= 5) {
+              setValue("status", "inactive");
+            } else {
+              setValue("status", "active");
+            }
+
             setShowModal(true);
           }}
           className="btn btn-primary w-fit"
@@ -298,14 +309,24 @@ const ManageAds = () => {
                 placeholder="Product Link"
                 className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
               />
-
               <select
                 {...register("status")}
-                className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:placeholder:text-gray-400 dark:text-gray-200 rounded"
+                disabled={activeCount >= 5 && !selectedAd}
+                className="w-full px-4 py-2 bg-gray-200 dark:bg-darkbody dark:text-gray-200 rounded"
               >
-                <option value="active">Active</option>
+                <option
+                  value="active"
+                  disabled={activeCount >= 5 && !selectedAd}
+                >
+                  Active
+                </option>
                 <option value="inactive">Inactive</option>
               </select>
+              {activeCount >= 5 && !selectedAd && (
+                <p className="text-xs text-red-500">
+                  Maximum 5 active ads allowed
+                </p>
+              )}
 
               <div className="flex justify-end gap-2 mt-4">
                 <button
