@@ -7,7 +7,7 @@ const ManageCategories = () => {
     <div className="p-6">
       <DTitle label={"Category Management"} icon={FaList} />
       {/* Top Buttons */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg: lg:grid-cols-5 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg: lg:grid-cols-5 gap-4 my-6">
         <NavLink to="/dashboard/categories-management" className="btn btn-info">
           Overview
         </NavLink>

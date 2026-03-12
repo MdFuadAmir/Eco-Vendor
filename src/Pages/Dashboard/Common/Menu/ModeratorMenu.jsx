@@ -84,6 +84,7 @@ const ModeratorMenu = ({ closedware }) => {
           icon={FaChartLine}
           onClick={closedware}
         />
+      
 
       </ul>
     </div>

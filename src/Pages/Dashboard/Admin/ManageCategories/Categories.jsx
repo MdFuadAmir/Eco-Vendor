@@ -193,7 +193,7 @@ const Categories = () => {
                       {cat.status}
                     </span>
                   </td>
-                  <td className="flex flex-wrap items-center gap-4">
+                  <td className=" space-x-2">
                     <button
                       onClick={() => openEditModal(cat)}
                       className="btn btn-xs"

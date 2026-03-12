@@ -49,6 +49,8 @@ import ShopPage from "../Pages/Landing/Shop/ShopPage";
 import ManageAds from "../Pages/Dashboard/Vendor/ManageAds/ManageAds";
 import Products from "../Pages/Products/Products";
 import FlashSalePage from "../Pages/Products/FlashSalePage";
+import ProductsLayout from "../Pages/Products/ProductsLayout/ProductsLayout";
+import Checkout from "../Pages/Cart/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +63,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/products",
-        Component: Products,
+        Component: ProductsLayout,
+        children: [
+          {
+            index: true,
+            element: <Products />,
+          },
+          {
+            path: "sub/:slug",
+            element: <Products />,
+          },
+          {
+            path: "category/:slug",
+            element: <Products />,
+          },
+        ],
       },
       {
         path: "/products/:slug",
@@ -100,8 +116,8 @@ const router = createBrowserRouter([
         Component: Cart,
       },
       {
-        path: "/cart",
-        Component: Cart,
+        path: "/checkout",
+        Component: Checkout,
       },
       {
         path: "/login",
@@ -188,8 +204,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      
-    
+
       {
         path: "manage-products",
         element: <ManageProducts />,
@@ -270,12 +285,12 @@ const router = createBrowserRouter([
         path: "messages",
         element: <SellerMessages />,
       },
-      
+
       {
         path: "messages",
         element: <SellerMessages />,
       },
-      
+
       // user/buyer
       {
         path: "address-book",

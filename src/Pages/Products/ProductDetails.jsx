@@ -5,10 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import StarRating from "../../Components/StarRating/StarRating";
 import ProductReview from "./ProductReview";
 import { FaShop } from "react-icons/fa6";
+import { IoShareSocialOutline } from "react-icons/io5";
+import WishlistButton from "../../Components/WishlistButton/WishlistButton";
+import AddToCartButton from "../Cart/AddToCartButton";
+
 const ProductDetails = () => {
   const { id } = useParams();
   const axiosPublic = useAxios();
-
   const [mainImage, setMainImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -30,7 +33,7 @@ const ProductDetails = () => {
   const variants = Array.isArray(product?.variants)
     ? product.variants.filter((v) => v.color && v.size && v.price)
     : [];
-  const hasVariants = variants.length > 0;
+  // const hasVariants = variants.length > 0;
   const colors = [...new Set(variants.map((v) => v.color))];
   const sizes = selectedColor
     ? variants.filter((v) => v.color === selectedColor).map((v) => v.size)
@@ -38,14 +41,6 @@ const ProductDetails = () => {
   const selectedVariant = variants.find(
     (v) => v.color === selectedColor && v.size === selectedSize,
   );
-  // 🔥 price logic
-  // const basePrice = selectedVariant?.price || product.price;
-  // const baseDiscount = selectedVariant?.discountPrice || product.discountPrice;
-  // const showDiscount = baseDiscount && baseDiscount < basePrice;
-  // const discountPercent = showDiscount
-  //   ? Math.round(((basePrice - baseDiscount) / basePrice) * 100)
-  //   : 0;
-  // 🔥 price logic priority
   const basePrice = selectedVariant?.price || product.price;
   const discountPrice = selectedVariant?.discountPrice || product.discountPrice;
   const flashSalePrice = product.flashSalePrice;
@@ -56,39 +51,39 @@ const ProductDetails = () => {
   const discountPercent = hasDiscount
     ? Math.round(((basePrice - discountPrice) / basePrice) * 100)
     : 0;
-  const handleAddToCart = () => {
-    let cartItem;
-    // ✅ NO VARIANT PRODUCT
-    if (!hasVariants) {
-      cartItem = {
-        productId: product._id,
-        name: product.name,
-        price: product.price,
-        image: product.mainImage,
-        quantity: 1,
-      };
-      console.log("ADD TO CART (NO VARIANT)", cartItem);
-      alert("Product added to cart");
-      return;
-    }
-    // ❌ VARIANT BUT NOT SELECTED
-    if (!selectedColor || !selectedSize) {
-      alert("Please select color & size");
-      return;
-    }
-    cartItem = {
-      productId: product._id,
-      name: product.name,
-      price: selectedVariant.price,
-      color: selectedVariant.color,
-      size: selectedVariant.size,
-      stock: selectedVariant.stock,
-      image: product.mainImage,
-      quantity: 1,
-    };
-    console.log("ADD TO CART (WITH VARIANT)", cartItem);
-    alert("Variant added to cart");
-  };
+  // const handleAddToCart = () => {
+  //   let cartItem;
+  //   // ✅ NO VARIANT PRODUCT
+  //   if (!hasVariants) {
+  //     cartItem = {
+  //       productId: product._id,
+  //       name: product.name,
+  //       price: product.price,
+  //       image: product.mainImage,
+  //       quantity: 1,
+  //     };
+  //     console.log("ADD TO CART (NO VARIANT)", cartItem);
+  //     alert("Product added to cart");
+  //     return;
+  //   }
+  //   // ❌ VARIANT BUT NOT SELECTED
+  //   if (!selectedColor || !selectedSize) {
+  //     alert("Please select color & size");
+  //     return;
+  //   }
+  //   cartItem = {
+  //     productId: product._id,
+  //     name: product.name,
+  //     price: selectedVariant.price,
+  //     color: selectedVariant.color,
+  //     size: selectedVariant.size,
+  //     stock: selectedVariant.stock,
+  //     image: product.mainImage,
+  //     quantity: 1,
+  //   };
+  //   console.log("ADD TO CART (WITH VARIANT)", cartItem);
+  //   alert("Variant added to cart");
+  // };
 
   return (
     <div className="md:px-10 lg:px-20 mx-auto">
@@ -125,10 +120,20 @@ const ProductDetails = () => {
         </div>
         {/* DETAILS SECTION */}
         <div className="p-4">
-          <h1 className="text-xl font-bold dark:text-white">{product?.name}</h1>
-          {product.rating !== undefined && (
-            <StarRating rating={product.rating} />
-          )}
+          <h1 className="text-xl font-bold dark:text-white mb-2">
+            {product?.name}
+          </h1>
+          <div className="flex justify-between items-center">
+            {product.rating !== undefined && (
+              <StarRating rating={product.rating} />
+            )}
+            <div className="flex gap-4 items-center text-xl dark:text-white">
+              <button>
+                <IoShareSocialOutline />
+              </button>
+              <WishlistButton productId={product._id} />
+            </div>
+          </div>
 
           {/* PRICE */}
           <div className="mt-4">
@@ -244,9 +249,11 @@ const ProductDetails = () => {
             </div>
           )}
           <div className="flex items-center justify-between gap-4 mt-6">
-            <button className="btn btn-accent" onClick={handleAddToCart}>
-              Add to Cart
-            </button>
+            <AddToCartButton
+              product={product}
+              variant="button"
+              className="btn btn-accent"
+            />
             <Link
               to={`/shop/${product?.sellerId}`}
               className="px-4 py-2 flex gap-2 items-center bg-linear-to-r from-orange-300 via-orange-500 to-orange-500 text-white rounded-md text-sm"

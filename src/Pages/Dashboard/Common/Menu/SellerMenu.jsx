@@ -90,6 +90,7 @@ const SellerMenu = ({ closedware }) => {
           icon={FaStar}
           onClick={closedware}
         />
+      
       </ul>
     </div>
   );

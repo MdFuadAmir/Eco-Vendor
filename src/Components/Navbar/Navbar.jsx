@@ -1,7 +1,5 @@
 import { NavLink } from "react-router";
-import { MdOutlineKeyboardArrowDown, MdRocketLaunch } from "react-icons/md";
-import { useState } from "react";
-import CategoryPanel from "./CategoryPanel";
+import { MdRocketLaunch } from "react-icons/md";
 
 const navLinks = (
   <>
@@ -11,11 +9,14 @@ const navLinks = (
       </NavLink>
     </li>
     <li>
-      <NavLink to="/products" className="hover:text-emerald-500 hover:border-b-2">
+      <NavLink
+        to="/products"
+        className="hover:text-emerald-500 hover:border-b-2"
+      >
         Products
       </NavLink>
     </li>
-    
+
     <li>
       <NavLink to="/store" className="hover:text-emerald-500 hover:border-b-2">
         Store
@@ -34,36 +35,16 @@ const navLinks = (
         Contact
       </NavLink>
     </li>
-    <li>
-      <NavLink
-        to="/social-login"
-        className="hover:text-emerald-500 hover:border-b-2"
-      >
-        Login
-      </NavLink>
-    </li>
   </>
 );
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
   return (
     <div className="bg-lightnav dark:bg-darknav">
       <div className="container mx-auto">
         <div className="flex justify-between items-center py-1">
           {/* All Categories Button */}
-          <button
-            onClick={toggleDrawer}
-            className="dark:text-white hover:text-emerald-400 flex items-center gap-2 px-4 py-2 rounded-lg font-bold w-[25%]"
-          >
-            All Categories <MdOutlineKeyboardArrowDown />
-          </button>
-
+          <div className="w-[25%]"></div>
           {/* Nav links */}
           <ul className="hidden lg:flex justify-center  gap-6 items-center dark:text-white">
             {navLinks}
@@ -80,9 +61,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
-      {/* ===== Drawer ===== */}
-      <CategoryPanel toggleDrawer={toggleDrawer} open={open} />
     </div>
   );
 };

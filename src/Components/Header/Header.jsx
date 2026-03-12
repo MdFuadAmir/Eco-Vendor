@@ -4,11 +4,16 @@ import { MdRocketLaunch } from "react-icons/md";
 import Search from "../Search/Search";
 import { useEffect, useState } from "react";
 import Logo from "../../Utils/Logo/Logo";
-import { CiHeart } from "react-icons/ci";
 import { IoCartOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { HiOutlineViewGrid } from "react-icons/hi";
+import useAuth from "../../Hooks/useAuth";
+import useMongoUser from "../../Hooks/useMongoUser";
+import { RiHeart2Line } from "react-icons/ri";
 const Header = () => {
+  const { user } = useAuth();
+  const { mongoUser, mongoUserLoading } = useMongoUser();
   const [fixedHeader, setFixedHeader] = useState(false);
   const handleScrollTop = () => {
     window.scrollTo({
@@ -28,6 +33,7 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <header className="relative z-50">
       {/*  */}
@@ -57,7 +63,7 @@ const Header = () => {
                 to={"/wishlist"}
                 className="hover:text-emerald-400 dark:text-white cursor-pointer"
               >
-                <CiHeart size={25} />
+                <RiHeart2Line size={25} />
               </Link>
             </Tooltip>
             <Tooltip title="Cart">
@@ -68,11 +74,27 @@ const Header = () => {
                 <IoCartOutline size={25} />
               </Link>
             </Tooltip>
-            <Tooltip title={"Account"}>
-              <Link to={"/dashboard"} className="hidden lg:block">
-                <MdOutlineManageAccounts size={25} />
-              </Link>
-            </Tooltip>
+            {user ? (
+              <Tooltip title="Dashboard">
+                <Link to="/dashboard" className="hidden lg:block">
+                  {mongoUserLoading ? (
+                    <MdOutlineManageAccounts size={25} />
+                  ) : (
+                    <img
+                      src={mongoUser?.sellerInfo.logo || mongoUser?.image}
+                      alt="user"
+                      className="w-8 h-8 rounded-full object-cover border"
+                    />
+                  )}
+                </Link>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Login">
+                <Link to="/login" className="hidden lg:block">
+                  <MdOutlineManageAccounts size={25} />
+                </Link>
+              </Tooltip>
+            )}
           </div>
         </div>
       </div>
@@ -89,31 +111,56 @@ const Header = () => {
           onClick={handleScrollTop}
           className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
         >
-          <IoHomeOutline size={24} />
+          <IoHomeOutline size={20} />
           <span className="text-xs">Home</span>
         </Link>
-
+        <Link
+          to="/products"
+          onClick={handleScrollTop}
+          className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
+        >
+          <HiOutlineViewGrid size={20} />
+          <span className="text-xs">Products</span>
+        </Link>
         <Link
           to={"/wishlist"}
-          className="flex flex-col items-center dark:text-white hover:text-emerald-400"
+          className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
         >
-          <CiHeart size={24} />
+          <RiHeart2Line size={20} />
           <span className="text-xs">Wishlist</span>
         </Link>
         <Link
           to={"/cart"}
           className="flex flex-col items-center  dark:text-white hover:text-emerald-400"
         >
-          <IoCartOutline size={24} />
+          <IoCartOutline size={20} />
           <span className="text-xs">Cart</span>
         </Link>
-        <Link
-          to={"/dashboard"}
-          className="flex flex-col items-center dark:text-white hover:text-emerald-400"
-        >
-          <MdOutlineManageAccounts size={24} />
-          <span className="text-xs">Account</span>
-        </Link>
+        {user ? (
+          <Link
+            to={"/dashboard"}
+            className="flex flex-col items-center dark:text-white hover:text-emerald-400"
+          >
+            {mongoUserLoading ? (
+              <MdOutlineManageAccounts size={20} />
+            ) : (
+              <img
+                src={mongoUser?.sellerInfo.logo || mongoUser?.image}
+                alt="user"
+                className="w-7 h-7 rounded-full object-cover border"
+              />
+            )}
+            <span className="text-xs">Account</span>
+          </Link>
+        ) : (
+          <Link
+            to={"/login"}
+            className="flex flex-col items-center dark:text-white hover:text-emerald-400"
+          >
+            <MdOutlineManageAccounts size={24} />
+            <span className="text-xs">Account</span>
+          </Link>
+        )}
       </div>
     </header>
   );

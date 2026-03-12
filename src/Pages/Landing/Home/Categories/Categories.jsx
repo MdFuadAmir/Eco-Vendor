@@ -1,8 +1,9 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import useAxios from "../../../../Hooks/useAxios";
+import Tilt from "react-parallax-tilt";
 
 const Categories = () => {
   const axiosPublic = useAxios();
@@ -17,9 +18,9 @@ const Categories = () => {
 
   if (isLoading) {
     return (
-      <div className="container py-12 grid grid-cols-2 md:grid-cols-5 gap-4">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="p-4 bg-white rounded shadow">
+      <div className="container py-12 grid grid-cols-2 md:grid-cols-6 lg:grid-cols-8 gap-4">
+        {Array.from({ length: 16 }).map((_, i) => (
+          <div key={i} className="p-4 bg-white dark:bg-gray-800 rounded shadow">
             <Skeleton height={60} />
             <Skeleton height={15} className="mt-2" />
           </div>
@@ -29,34 +30,45 @@ const Categories = () => {
   }
 
   return (
-    <div className="container py-12">
+    <div className="container">
       <div
         className="grid grid-rows-2 grid-flow-col 
           auto-cols-[150px]
-          gap-4
+          
           overflow-x-auto
           scroll-smooth
           snap-x snap-mandatory no-scrollbar
-          py-2"
+          py-12"
       >
-        {categories.map((cat) => (
-          <Link
-            key={cat._id}
-            to={`/products/${cat.slug}`}
-            className="rounded bg-lightnav dark:bg-darknav/80 dark-card p-2 text-center shadow hover:shadow-lg transition text-lighttitle dark:text-darktitle"
-          >
-            <img
-              src={cat.image}
-              alt={cat.name}
-              className="h-14 w-full object-contain mx-auto"
-            />
-            <p className="mt-2 text-xs font-medium dark:text-white">
-              {cat.name}
-            </p>
-          </Link>
-        ))}
-      </div>
+        {categories.map((cat, index) => {
+          const isFirstRow = index % 2 === 0;
+          return (
+            <Tilt
+              key={cat._id}
+              tiltMaxAngleX={10}
+              tiltMaxAngleY={10}
+              className={`bg-white dark:bg-darknav/50 dark-card p-4 text-center transition
+      text-lighttitle dark:text-darktitle
+      border-gray-200 dark:border-gray-700
       
+      ${isFirstRow ? "border-b border-r" : "border-r"}
+      `}
+            >
+              <Link to={`/products/category/${cat.slug}`}>
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="h-14 w-fit object-contain mx-auto"
+                />
+
+                <p className="mt-2 text-xs font-medium dark:text-white">
+                  {cat.name}
+                </p>
+              </Link>
+            </Tilt>
+          );
+        })}
+      </div>
     </div>
   );
 };

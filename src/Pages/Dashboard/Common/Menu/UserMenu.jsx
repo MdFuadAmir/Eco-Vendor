@@ -9,6 +9,7 @@ import MenuItem from "./MenuItem";
 import { RiUserSettingsFill } from "react-icons/ri";
 
 const UserMenu = ({ closedware }) => {
+  
   return (
     <div>
       <ul className="border-b border-gray-400 space-y-2">
@@ -48,6 +49,7 @@ const UserMenu = ({ closedware }) => {
           icon={RiUserSettingsFill}
           onClick={closedware}
         />
+        
       </ul>
     </div>
   );

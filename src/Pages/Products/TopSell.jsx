@@ -17,6 +17,7 @@ const TopSell = () => {
         queryKey={["topRatedProducts"]}
         limit={12}     
         paginated={false} 
+        gridClass = "grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
       />
     </div>
   );

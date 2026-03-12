@@ -29,6 +29,7 @@ const TopRatedPage = () => {
         showSearch={true}
         showPriceFilter={true}
         showRatingFilter={true}
+        gridClass = "grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
       />
     </div>
   );

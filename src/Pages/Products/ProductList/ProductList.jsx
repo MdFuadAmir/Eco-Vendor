@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import Pagination from "../../../Components/Pagination/Pagination";
 import Product from "../Product";
 
-const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false}) => {
+const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false,gridClass}) => {
   const axiosPublic = useAxios();
   const [page, setPage] = useState(1);
 
@@ -38,7 +38,8 @@ const ProductList = ({ endpoint, queryKey, limit = 20, paginated = false}) => {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+
+      <div className={`grid ${gridClass} gap-4`}>
         {Array.isArray(products) && products.length > 0 ? (
           products.map((prod) => <Product key={prod._id} prod={prod} />)
         ) : (

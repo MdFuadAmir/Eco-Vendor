@@ -147,6 +147,7 @@ const ShopPage = () => {
                   queryKey={["shopProductsFeatured", sellerId]}
                   limit={20}
                   paginated={false}
+                  gridClass="grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
                 />
               </div>
             </div>
@@ -162,6 +163,7 @@ const ShopPage = () => {
                 queryKey={["shopProducts", sellerId]}
                 limit={20}
                 paginated={true}
+                gridClass="grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
               />
             </div>
           </TabPanel>

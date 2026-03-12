@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../../Hooks/useAxios";
-
+import Tilt from "react-parallax-tilt";
 const AdsBannerSkeleton = () => (
   <div className="grid grid-rows-1 grid-flow-col auto-cols-max gap-6 animate-pulse">
     {Array.from({ length: 4 }).map((_, i) => (
@@ -60,16 +60,18 @@ const AdsBanner = () => {
 
       <div
         ref={sliderRef}
-        className="grid grid-rows-1 grid-flow-col auto-cols-max gap-6 overflow-x-auto md:overflow-x-hidden"
+        className="grid grid-rows-1 grid-flow-col auto-cols-max gap-6 overflow-hidden overflow-x-auto md:overflow-x-hidden"
       >
         {adsContent.map((ads) => (
-          <Link key={ads._id} to={ads.link || "/"}>
-            <img
-              src={ads.image}
-              alt=""
-              className="rounded-xl h-64 w-full object-cover"
-            />
-          </Link>
+          <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} className="">
+            <Link key={ads._id} to={ads.link || "/"}>
+              <img
+                src={ads.image}
+                alt=""
+                className="rounded-xl h-64 w-full object-cover"
+              />
+            </Link>
+          </Tilt>
         ))}
       </div>
     </div>
