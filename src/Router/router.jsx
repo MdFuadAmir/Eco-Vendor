@@ -51,6 +51,7 @@ import Products from "../Pages/Products/Products";
 import FlashSalePage from "../Pages/Products/FlashSalePage";
 import ProductsLayout from "../Pages/Products/ProductsLayout/ProductsLayout";
 import Checkout from "../Pages/Cart/Checkout";
+import Invoice from "../Pages/Dashboard/Vendor/SellerOrderManagement/Invoice";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         Component: Checkout,
+      },
+      {
+        path: "/invoice/:id",
+        element: <Invoice />,
       },
       {
         path: "/login",
@@ -278,9 +283,10 @@ const router = createBrowserRouter([
         element: <SellerMessages />,
       },
       {
-        path: "My-orders",
+        path: "my-orders",
         element: <MyOrders />,
       },
+      
       {
         path: "messages",
         element: <SellerMessages />,
