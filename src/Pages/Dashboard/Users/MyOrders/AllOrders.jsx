@@ -1,182 +1,254 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxios from "../../../../Hooks/useAxios";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useState } from "react";
-
-const statusColor = {
-  pending: "bg-yellow-100 text-yellow-600",
-  accepted: "bg-blue-100 text-blue-600",
-  packed: "bg-purple-100 text-purple-600",
-  shipped: "bg-indigo-100 text-indigo-600",
-  completed: "bg-green-100 text-green-600",
-  cancelled: "bg-red-100 text-red-600",
-};
+import dayjs from "dayjs";
+import toast from "react-hot-toast";
 
 const AllOrders = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxios();
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const axios = useAxios();
 
-  const { data: orders = [], isLoading } = useQuery({
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [cancelModal, setCancelModal] = useState(false);
+  const [cancelReason, setCancelReason] = useState("");
+  const [cancelOrderId, setCancelOrderId] = useState(null);
+  const [actionType, setActionType] = useState("");
+
+  const {
+    data: orders = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["my-orders", user?.email],
-    enabled: !!user?.email,
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/my-orders/${user.email}`);
+      const { data } = await axios.get(`/my-orders/${user.email}`);
       return data;
     },
+    enabled: !!user?.email,
   });
 
-  // Skeleton Loader
-  if (isLoading) {
-    return (
-      <div className="space-y-6">
-        {[...Array(3)].map((_, i) => (
-          <div key={i} className="border p-4 rounded-xl">
-            <Skeleton height={20} width={200} />
-            <Skeleton height={15} width={120} className="mt-2" />
+  const handleConfirmAction = async () => {
+    try {
+      if (!cancelReason.trim()) {
+        return toast.error("Please enter a reason");
+      }
 
-            <div className="mt-4 space-y-2">
-              <Skeleton height={60} />
-              <Skeleton height={60} />
-            </div>
+      if (actionType === "cancel") {
+        await axios.patch(`/orders/${cancelOrderId}/cancel`, {
+          reason: cancelReason,
+        });
+        toast.success("Order cancelled");
+      }
 
-            <Skeleton height={30} width={120} className="mt-4" />
-          </div>
-        ))}
-      </div>
-    );
-  }
+      if (actionType === "refund") {
+        await axios.post("/refund-request", {
+          orderId: cancelOrderId,
+          reason: cancelReason,
+        });
+        toast.success("Refund request sent");
+      }
 
-  if (!orders.length) return <p>No orders found</p>;
+      setCancelModal(false);
+      setCancelReason("");
+      setCancelOrderId(null);
+      setActionType("");
+
+      refetch();
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed");
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (!user?.email) return null;
 
   return (
-    <>
-      <div className="space-y-6">
-        {orders.map((order) => (
-          <div
-            key={order._id}
-            className="border rounded-xl p-4 shadow-sm bg-white"
-          >
-            {/* Order Header */}
-            <div className="flex justify-between items-center border-b pb-2 mb-3">
-              <div>
-                <p className="font-semibold">Order ID: {order.orderId}</p>
-                <p className="text-sm text-gray-500">{order.shopName}</p>
-                <p className="text-xs text-gray-500">{new Date(order.createdAt).toLocaleString()}</p>
-              </div>
-
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  statusColor[order.orderStatus]
-                }`}
-              >
-                {order.orderStatus}
-              </span>
+    <div className="p-6 space-y-6">
+      {orders.map((order) => (
+        <div
+          key={order._id}
+          className="bg-white shadow rounded-xl p-4 space-y-4"
+        >
+          {/* TOP */}
+          <div className="flex justify-between items-center border-b pb-2">
+            <div>
+              <p className="font-semibold">{order.orderId}</p>
+              <p className="text-sm text-gray-500">
+                {dayjs(order.createdAt).format("YYYY-MM-DD HH:mm")}
+              </p>
             </div>
 
-            {/* Products */}
-            <div className="space-y-3">
-              {order.products.map((product) => (
-                <div
-                  key={product._id}
-                  className="flex gap-4 items-center border-b pb-2"
-                >
-                  <img
-                    src={product.image}
-                    className="w-16 h-16 object-cover rounded"
-                  />
+            <span
+              className={`px-3 py-1 rounded text-sm font-medium ${
+                order.orderStatus === "pending"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : order.orderStatus === "shipped"
+                    ? "bg-blue-100 text-blue-700"
+                    : order.orderStatus === "cancelled"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-green-100 text-green-700"
+              }`}
+            >
+              {order.orderStatus}
+            </span>
+          </div>
 
-                  <div className="flex-1">
-                    <p className="font-medium">{product.name}</p>
-                    <p className="text-sm text-gray-500">
-                      ${product.price} × {product.quantity}
-                    </p>
-                  </div>
-
-                  <p className="font-semibold">
-                    ${(product.price * product.quantity).toFixed(2)}
+          {/* PRODUCTS */}
+          <div className="space-y-3">
+            {order.products.map((p) => (
+              <div
+                key={p._id}
+                className="flex items-center gap-4 border rounded p-2"
+              >
+                <img
+                  src={p.image || "/placeholder.png"}
+                  alt={p.name}
+                  className="w-16 h-16 object-cover rounded"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold">{p.name}</p>
+                  <p className="text-sm text-gray-500">
+                    {p.quantity} x {p.price}
                   </p>
                 </div>
-              ))}
+                <p className="font-semibold">{p.quantity * p.price}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* BOTTOM */}
+          <div className="flex justify-between items-center border-t pt-3">
+            <div>
+              <p className="text-sm">
+                Payment: {order.paymentStatus} ({order.paymentMethod})
+              </p>
+              <p className="font-bold">Total: {order.total}</p>
+
+              {order.orderStatus === "cancelled" && (
+                <p className="text-red-500 text-sm">
+                  Cancelled by: {order.cancelledBy}
+                </p>
+              )}
             </div>
 
-            {/* Footer */}
-            <div className="flex justify-between items-center mt-3">
-              <p className="font-semibold">Total: ${order.total}</p>
-
+            <div className="flex gap-2">
+              {/* VIEW BUTTON */}
               <button
                 onClick={() => setSelectedOrder(order)}
-                className="px-4 py-1 bg-emerald-500 text-white rounded text-sm"
+                className="bg-blue-500 text-white px-4 py-1 rounded"
               >
-                View Details
+                View
               </button>
+
+              {/* CANCEL / REFUND */}
+              {["pending", "accepted", "packed"].includes(order.orderStatus) &&
+                (order.paymentMethod === "cod" ? (
+                  <button
+                    onClick={() => {
+                      setCancelOrderId(order._id);
+                      setActionType("cancel");
+                      setCancelModal(true);
+                    }}
+                    className="bg-red-500 text-white px-4 py-1 rounded"
+                  >
+                    Cancel Order
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setCancelOrderId(order._id);
+                      setActionType("refund");
+                      setCancelModal(true);
+                    }}
+                    className="bg-orange-500 text-white px-4 py-1 rounded"
+                  >
+                    Refund & Cancel
+                  </button>
+                ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* ORDER DETAILS MODAL */}
+          {/* REFUND STATUS */}
+          {order.refundStatus === "requested" && (
+            <p className="text-yellow-500 text-sm">Refund Requested</p>
+          )}
+          {order.refundStatus === "approved" && (
+            <p className="text-green-500 text-sm">Refunded Pending</p>
+          )}
+          {order.refundStatus === "refunded" && (
+            <p className="text-green-500 text-sm">Refunded</p>
+          )}
+        </div>
+      ))}
+
+      {/* ✅ VIEW MODAL */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl w-150 p-6 max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl w-full max-w-2xl relative">
+            <button
+              onClick={() => setSelectedOrder(null)}
+              className="absolute top-2 right-3 text-xl"
+            >
+              ✕
+            </button>
 
-            <div className="flex justify-between mb-4">
-              <h2 className="text-xl font-bold">Order Details</h2>
+            <h3 className="text-xl font-bold mb-4">
+              Order: {selectedOrder.orderId}
+            </h3>
 
-              <button
-                onClick={() => setSelectedOrder(null)}
-                className="text-red-500"
-              >
-                Close
-              </button>
-            </div>
+            <p>Status: {selectedOrder.orderStatus}</p>
+            <p>Total: {selectedOrder.total}</p>
 
-            <p className="mb-2">
-              <b>Order ID:</b> {selectedOrder.orderId}
-            </p>
-
-            <p className="mb-4">
-              <b>Status:</b> {selectedOrder.orderStatus}
-            </p>
-
-            <div className="space-y-3">
+            <div className="mt-4 space-y-2">
               {selectedOrder.products.map((p) => (
-                <div
-                  key={p._id}
-                  className="flex gap-4 border p-2 rounded"
-                >
-                  <img
-                    src={p.image}
-                    className="w-16 h-16 object-cover"
-                  />
-
-                  <div className="flex-1">
-                    <p>{p.name}</p>
-                    <p className="text-sm text-gray-500">
-                      ${p.price} × {p.quantity}
-                    </p>
-                  </div>
-
-                  <p className="font-semibold">
-                    ${(p.price * p.quantity).toFixed(2)}
-                  </p>
+                <div key={p._id} className="flex gap-3">
+                  <img src={p.image} className="w-12 h-12" />
+                  <p>{p.name}</p>
                 </div>
               ))}
-            </div>
-
-            <div className="border-t mt-4 pt-4">
-              <p>Products Total: ${selectedOrder.productsTotal}</p>
-              <p>Shipping: ${selectedOrder.shippingFee}</p>
-              <p className="font-bold text-lg">
-                Total: ${selectedOrder.total}
-              </p>
             </div>
           </div>
         </div>
       )}
-    </>
+
+      {/* ✅ CANCEL / REFUND MODAL */}
+      {cancelModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl w-full max-w-md space-y-4">
+            <h3 className="text-lg font-bold">
+              {actionType === "cancel" ? "Cancel Order" : "Refund Request"}
+            </h3>
+
+            <textarea
+              placeholder="Write your reason..."
+              value={cancelReason}
+              onChange={(e) => setCancelReason(e.target.value)}
+              className="w-full border rounded p-2"
+            />
+
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => {
+                  setCancelModal(false);
+                  setCancelReason("");
+                }}
+                className="px-4 py-1 bg-gray-300 rounded"
+              >
+                Close
+              </button>
+
+              <button
+                onClick={handleConfirmAction}
+                className="px-4 py-1 bg-red-500 text-white rounded"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

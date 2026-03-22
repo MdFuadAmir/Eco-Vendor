@@ -63,7 +63,7 @@ const AdsBanner = () => {
         className="grid grid-rows-1 grid-flow-col auto-cols-max gap-6 overflow-hidden overflow-x-auto md:overflow-x-hidden"
       >
         {adsContent.map((ads) => (
-          <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} className="">
+          <Tilt tiltMaxAngleX={40} tiltMaxAngleY={40} className="">
             <Link key={ads._id} to={ads.link || "/"}>
               <img
                 src={ads.image}

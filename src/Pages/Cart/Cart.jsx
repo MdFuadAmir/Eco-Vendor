@@ -85,7 +85,6 @@ const Cart = () => {
     const selectedShopItems = shop.items.filter((item) =>
       selectedItems.includes(item._id),
     );
-
     if (selectedShopItems.length > 0) {
       // products price
       selectedShopItems.forEach((item) => {
