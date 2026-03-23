@@ -213,7 +213,7 @@ const MyProducts = () => {
                     </span>
                   </td>
 
-                  <td className="flex flex-wrap gap-4">
+                  <td className="space-x-2">
                     <button
                       className="btn btn-xs btn-outline"
                       onClick={() => handleUpdate(item)}

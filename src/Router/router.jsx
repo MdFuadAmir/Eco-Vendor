@@ -52,6 +52,7 @@ import FlashSalePage from "../Pages/Products/FlashSalePage";
 import ProductsLayout from "../Pages/Products/ProductsLayout/ProductsLayout";
 import Checkout from "../Pages/Cart/Checkout";
 import Invoice from "../Pages/Dashboard/Vendor/SellerOrderManagement/Invoice";
+import OrderTracking from "../Pages/Dashboard/Users/OrderTracking/OrderTracking";
 
 const router = createBrowserRouter([
   {
@@ -305,6 +306,10 @@ const router = createBrowserRouter([
       {
         path: "request-for-seller",
         element: <SellerRequest />,
+      },
+      {
+        path: "track-order",
+        element: <OrderTracking/>,
       },
     ],
   },

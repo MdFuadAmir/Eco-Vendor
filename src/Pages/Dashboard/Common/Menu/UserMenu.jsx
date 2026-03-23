@@ -37,6 +37,7 @@ const UserMenu = ({ closedware }) => {
           icon={FaAddressBook}
           onClick={closedware}
         />
+        
         <MenuItem
           label="Seller request"
           to="/dashboard/request-for-seller"

@@ -58,6 +58,7 @@ const Header = () => {
             </div>
           </div>
           <div className="hidden lg:flex items-center gap-4 ">
+            
             <Tooltip title="Wishlist">
               <Link
                 to={"/wishlist"}

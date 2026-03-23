@@ -239,7 +239,13 @@ const AdminManageOrders = () => {
             />
 
             <div className="flex justify-end gap-2">
-              <button onClick={() => setCancelModal(false)} className="btn">
+              <button
+                onClick={() => {
+                  setCancelModal(false);
+                  setSelectedOrder(null);
+                }}
+                className="btn"
+              >
                 Close
               </button>
 
@@ -255,3 +261,4 @@ const AdminManageOrders = () => {
 };
 
 export default AdminManageOrders;
+

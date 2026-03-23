@@ -4,11 +4,12 @@ import useAuth from "../../../../Hooks/useAuth";
 import useAxios from "../../../../Hooks/useAxios";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
+import OrderTracking from "../OrderTracking/OrderTracking";
 
 const AllOrders = () => {
   const { user } = useAuth();
   const axios = useAxios();
-
+  const [trackingOrder, setTrackingOrder] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [cancelModal, setCancelModal] = useState(false);
   const [cancelReason, setCancelReason] = useState("");
@@ -133,6 +134,13 @@ const AllOrders = () => {
             </div>
 
             <div className="flex gap-2">
+              {/* track order */}
+              <button
+                onClick={() => setTrackingOrder(order)}
+                className="bg-purple-500 text-white px-4 py-1 rounded"
+              >
+                Track
+              </button>
               {/* VIEW BUTTON */}
               <button
                 onClick={() => setSelectedOrder(order)}
@@ -140,7 +148,6 @@ const AllOrders = () => {
               >
                 View
               </button>
-
               {/* CANCEL / REFUND */}
               {["pending", "accepted", "packed"].includes(order.orderStatus) &&
                 (order.paymentMethod === "cod" ? (
@@ -248,6 +255,26 @@ const AllOrders = () => {
           </div>
         </div>
       )}
+      {/* ✅ TRACKING MODAL */}
+{trackingOrder && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-xl w-full max-w-2xl relative">
+      <button
+        onClick={() => setTrackingOrder(null)}
+        className="absolute top-2 right-3 text-xl"
+      >
+        ✕
+      </button>
+
+      <h3 className="text-xl font-bold mb-4">
+        Tracking: {trackingOrder.orderId}
+      </h3>
+
+      {/* 🔥 TRACKING COMPONENT */}
+      <OrderTracking order={trackingOrder} />
+    </div>
+  </div>
+)}
     </div>
   );
 };
